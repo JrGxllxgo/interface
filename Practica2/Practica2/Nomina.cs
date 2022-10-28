@@ -98,10 +98,10 @@ namespace Practica2
 
         public double TotalDescuentos(Empleado miEmpleado)
         {
-            return CotASegSocial(miEmpleado) + CotSegSocial(miEmpleado) + RetIrpf(miEmpleado);
+            return CotASegSocial(miEmpleado) + CotSegDes(miEmpleado) + RetIrpf(miEmpleado);
         }
 
-        public double CotSegSocial(Empleado miEmpleado)
+        public double CotSegDes(Empleado miEmpleado)
         {
             return DevengosPagaExtra(miEmpleado) * 1.97 / 100;
         }
@@ -118,7 +118,7 @@ namespace Practica2
 
         public double TotalDevengado(Empleado miEmpledao)
         {
-            return miEmpleado.SalarioBaseProp + ImporteAntiguedad(miEmpleado) + ImporteHorasExtras(miEmpleado);
+            return miEmpleado.SalarioBaseProp + ImporteAntiguedad(miEmpleado) + ImporteHorasExtras(miEmpleado) + DevengosPagaExtra(miEmpleado);
         }
 
         public double LiquidoAPercibir(Empleado miEmpleado)
@@ -130,7 +130,7 @@ namespace Practica2
             else
             {
                 liquido = TotalDevengado(miEmpleado) - TotalDescuentos(miEmpleado);
-            }
+            }   
             return liquido;
         }
 
@@ -150,14 +150,17 @@ namespace Practica2
 
         public void showNomina()
         {
-            Console.WriteLine("LIQUIDACION DE HABERES AL " + FechaNominaProp);
-            Console.WriteLine("DEVENGOS" +
-                "\n----------" +
-                "\nSalariobase\t\t\t" + miEmpleado.SalarioBaseProp + 
-                "\nAntigüedad\t\t\t" + ImporteAntiguedad(miEmpleado) +
-                "\nImporte Hor.Extr.\t\t\t" + ImporteHorasExtras(miEmpleado) +
-                "\nPaga Extra\t\t\t" + DevengosPagaExtra(miEmpleado) + 
-                "\n\nTotal Deevengos\t\t\t" + TotalDevengado(miEmpleado));
+            Console.WriteLine("\nLIQUIDACION DE HABERES AL " + FechaNominaProp);
+            Console.WriteLine("\nDEVENGOS\t\t\t\tDESCUENTOS" +
+                "\n----------\t\t\t\t----------" +
+                "\nSalario Base\t\t" + miEmpleado.SalarioBaseProp + "\t\tCotizacion Seg.Soc.\t" + CotASegSocial(miEmpleado) +
+                "\nAntigüedad\t\t" + ImporteAntiguedad(miEmpleado) + "\t\tCotizacion Seg.Des.\t" + CotSegDes(miEmpleado) +
+                "\nImporte Hor.Extr.\t" + ImporteHorasExtras(miEmpleado) + "\t\tRetención I.R.P.F\t" + RetIrpf(miEmpleado) +
+                "\nPaga Extra\t\t" + DevengosPagaExtra(miEmpleado) + 
+                "\n\nTotal Devengos\t\t" + TotalDevengado(miEmpleado) + "\t\tTotal Descuentos\t" + TotalDescuentos(miEmpleado) +
+                "\n\n************************************" +
+                "\nLIQUIDO A PERCIBIR\t" + LiquidoAPercibir(miEmpleado) +
+                "\n************************************");
         }
     }
 }

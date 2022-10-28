@@ -56,6 +56,7 @@ namespace Practica2
             Console.WriteLine("Horas extras: ");
             miNomina.NumHorasExtrasProp = Convert.ToInt32(Console.ReadLine());
 
+            miEmpleado.showEmpleadoData();
             miNomina.showNomina();
         }
     }
