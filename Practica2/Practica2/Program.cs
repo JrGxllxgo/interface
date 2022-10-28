@@ -13,8 +13,66 @@ namespace Practica2
         public static void Main(String[] args)
         {
             Console.WriteLine("------- Introduzca los siguientes datos -------");
-            Empleado miEmpleado = new Empleado();
 
+            Int16 optSelected;
+
+            while (true)
+            {
+                try
+                {
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("\n1. Crear un nuevo empleado con nómina" +
+                        "\n2. Salir del Programa");
+                    optSelected = Convert.ToInt16(Console.ReadLine());
+
+                    switch (optSelected)
+                    {
+                        case 1:
+                            Empleado miEmpleado = new Empleado();
+                            createEmpleado(miEmpleado);
+                            Nomina miNomina = addNominaData(miEmpleado);
+                            miEmpleado.showEmpleadoData();
+                            miNomina.showNomina();  
+                            break;
+                        case 2://opción donde salimos del programa
+                            Console.WriteLine("Hasta luego!!!");
+                            Environment.Exit(0);
+                            break;
+                        default: //mensaje predefinido que saldrá cuando introduzcan un valor numérico que no está entre las opciones
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Opción no válida");
+                            break;
+                    }
+                }
+                catch (OverflowException) //cojemos la excepcion por si escribe un valor muy largo
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error en la introduccion de la opción");
+                }
+            }
+        }
+
+        public static Nomina addNominaData(Empleado miEmpleado)
+        {
+            Nomina miNomina = new Nomina(miEmpleado);
+            Console.WriteLine("Fecha de liquidación (dd/mm/aaaa): ");
+            try
+            {
+                miNomina.FechaNominaProp = DateTime.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Formato de la fecha es incorrecto");
+            }
+            Console.WriteLine("Horas extras: ");
+            miNomina.NumHorasExtrasProp = Convert.ToInt32(Console.ReadLine());
+            return miNomina;
+        }
+
+        private static void createEmpleado(Empleado miEmpleado)
+        {
             Console.WriteLine("Nombre: ");
             miEmpleado.NombreProp = Console.ReadLine();
 
@@ -39,25 +97,8 @@ namespace Practica2
                 miEmpleado.NumHijosProp = Convert.ToInt32(Console.ReadLine());
             }
 
-
             Console.WriteLine("Trienios: ");
             miEmpleado.NumTrieniosProp = Convert.ToInt32(Console.ReadLine());
-
-            Nomina miNomina = new Nomina(miEmpleado);
-            Console.WriteLine("Fecha de liquidación (dd/mm/aaaa): ");
-            try
-            {
-                miNomina.FechaNominaProp = DateTime.Parse(Console.ReadLine());
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Formato de la fecha es incorrecto");
-            }
-            Console.WriteLine("Horas extras: ");
-            miNomina.NumHorasExtrasProp = Convert.ToInt32(Console.ReadLine());
-
-            miEmpleado.showEmpleadoData();
-            miNomina.showNomina();
         }
     }
 }
