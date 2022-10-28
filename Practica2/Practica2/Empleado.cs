@@ -91,7 +91,7 @@ namespace Practica2
         public void showEmpleadoData()
         {
             Console.WriteLine("Nombre.....: " + NombreProp 
-                +"\nN.I.F.................: " + NifProp
+                + "\nN.I.F.................: " + NifProp
                 + "\nCategoría............: " + CategoriaProp
                 + "\nNº Hijos.............: " + NumHijosProp
                 + "\nNº Trienios..........: " + NumTrieniosProp

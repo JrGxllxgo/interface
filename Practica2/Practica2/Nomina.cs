@@ -25,8 +25,9 @@ namespace Practica2
         private double liquido, retIRPF;
         #endregion
 
-        public Nomina()
+        public Nomina(Empleado miEmpleado)
         {
+            this.miEmpleado = miEmpleado;
             ImporteAntiguedad(miEmpleado);
             ImporteHorasExtras(miEmpleado);
         }
@@ -144,6 +145,19 @@ namespace Practica2
                 retIRPF = TotalDevengado(miEmpleado) * porcIRPF / 100;
             }
             return retIRPF;
+        }
+
+
+        public void showNomina()
+        {
+            Console.WriteLine("LIQUIDACION DE HABERES AL " + FechaNominaProp);
+            Console.WriteLine("DEVENGOS" +
+                "\n----------" +
+                "\nSalariobase\t\t\t" + miEmpleado.SalarioBaseProp + 
+                "\nAntigüedad\t\t\t" + ImporteAntiguedad(miEmpleado) +
+                "\nImporte Hor.Extr.\t\t\t" + ImporteHorasExtras(miEmpleado) +
+                "\nPaga Extra\t\t\t" + DevengosPagaExtra(miEmpleado) + 
+                "\n\nTotal Deevengos\t\t\t" + TotalDevengado(miEmpleado));
         }
     }
 }

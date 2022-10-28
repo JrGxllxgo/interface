@@ -32,16 +32,18 @@ namespace Practica2
 
             Console.WriteLine("Número de hijos: ");
             miEmpleado.NumHijosProp = Convert.ToInt32(Console.ReadLine());
+            while (miEmpleado.NumHijosProp < 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Número de hijos no puede ser menor que 0\t\nIntroduzca correctamente el número de hijos");
+                miEmpleado.NumHijosProp = Convert.ToInt32(Console.ReadLine());
+            }
+
+
             Console.WriteLine("Trienios: ");
             miEmpleado.NumTrieniosProp = Convert.ToInt32(Console.ReadLine());
 
-            miEmpleado.showEmpleadoData();
-            askForNominaValues();
-        }
-
-        private static void askForNominaValues()
-        {
-            Nomina miNomina = new Nomina();
+            Nomina miNomina = new Nomina(miEmpleado);
             Console.WriteLine("Fecha de liquidación (dd/mm/aaaa): ");
             try
             {
@@ -53,6 +55,8 @@ namespace Practica2
             }
             Console.WriteLine("Horas extras: ");
             miNomina.NumHorasExtrasProp = Convert.ToInt32(Console.ReadLine());
+
+            miNomina.showNomina();
         }
     }
 }
