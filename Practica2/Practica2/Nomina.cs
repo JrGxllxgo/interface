@@ -17,8 +17,8 @@ namespace Practica2
 {
     class Nomina
     {
-        private Empleado miEmpleado;
         #region valores
+        private Empleado miEmpleado;
         private Empleado empleadoNomina;
         private DateTime fechaNomina;
         private int numHorasExtras, porcIRPF;
@@ -79,7 +79,6 @@ namespace Practica2
                 empleadoNomina = value;
             }
         }
-
 
         public double ImporteAntiguedad(Empleado miEmpleado)
         {
@@ -146,7 +145,6 @@ namespace Practica2
             }
             return retIRPF;
         }
-
 
         public void showNomina()
         {
