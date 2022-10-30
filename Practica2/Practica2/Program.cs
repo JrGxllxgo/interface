@@ -6,6 +6,8 @@
 * FECHA de ENTREGA.....: 27 de octubre de 2022
 */
 
+using System.Linq.Expressions;
+
 namespace Practica2
 {
     class Program
@@ -23,6 +25,7 @@ namespace Practica2
                     Console.WriteLine("\n1. Crear un nuevo empleado con nómina" +
                         "\n2. Salir del Programa");
                     optSelected = Convert.ToInt16(Console.ReadLine());
+                    Console.ForegroundColor = ConsoleColor.White;
 
                     switch (optSelected)
                     {
@@ -45,6 +48,12 @@ namespace Practica2
                     }
                 }
                 catch (OverflowException) //cojemos la excepcion por si escribe un valor muy largo
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error en la introduccion de la opción");
+                }
+                catch (FormatException) //excepcion por si escribe texto
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -76,7 +85,7 @@ namespace Practica2
             return miNomina;
         }
 
-        private static void createEmpleado(Empleado miEmpleado)
+        public static void createEmpleado(Empleado miEmpleado)
         {
             Console.Clear();
             Console.WriteLine("------- Introduzca los siguientes datos -------");
@@ -89,7 +98,15 @@ namespace Practica2
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("N.I.F.: ");
             Console.ForegroundColor = ConsoleColor.White;
-            miEmpleado.NifProp = Console.ReadLine();
+            miEmpleado.NifProp = (Console.ReadLine());
+            while (!ValidarNIF(miEmpleado.NifProp))
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("El NIF es incorrecto, introduzca de nuevo:");
+                Console.ForegroundColor = ConsoleColor.White;
+                miEmpleado.NifProp = (Console.ReadLine());
+            }
 
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Categoría: ");
@@ -121,6 +138,61 @@ namespace Practica2
             Console.WriteLine("Trienios: ");
             Console.ForegroundColor = ConsoleColor.White;
             miEmpleado.NumTrieniosProp = Convert.ToInt32(Console.ReadLine());
+        }
+
+        public static bool ValidarNIF(string NIF)
+        {
+            if (NIF == "")
+                return false;
+            try
+            {
+                //Obtenemos la letra del NIF (el último carácter)
+                String letra = NIF.Substring(NIF.Length - 1, 1);
+                //Obtenemos los números del NIF
+                NIF = NIF.Substring(0, NIF.Length - 1);
+                //Convertimos a número
+                int nifNum = int.Parse(NIF);
+                int resto = nifNum % 23;
+                string letraResto = ObtenerLetra(resto);
+                if (letraResto != letra.ToUpper())
+                    return false;
+                else
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        //Obtiene la letra correspondiente al número
+        private static string ObtenerLetra(int numero)
+        {
+            Dictionary<int, String> letras = new Dictionary<int, string>();
+            letras.Add(0, "T");
+            letras.Add(1, "R");
+            letras.Add(2, "W");
+            letras.Add(3, "A");
+            letras.Add(4, "G");
+            letras.Add(5, "M");
+            letras.Add(6, "Y");
+            letras.Add(7, "F");
+            letras.Add(8, "P");
+            letras.Add(9, "D");
+            letras.Add(10, "X");
+            letras.Add(11, "B");
+            letras.Add(12, "N");
+            letras.Add(13, "J");
+            letras.Add(14, "Z");
+            letras.Add(15, "S");
+            letras.Add(16, "Q");
+            letras.Add(17, "V");
+            letras.Add(18, "H");
+            letras.Add(19, "L");
+            letras.Add(20, "C");
+            letras.Add(21, "K");
+            letras.Add(22, "E");
+            return letras[numero];
         }
     }
 }
