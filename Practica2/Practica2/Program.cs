@@ -77,6 +77,7 @@ namespace Practica2
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Formato de la fecha es incorrecto");
+                miNomina.FechaNominaProp = DateTime.Now;
             }
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Horas extras: ");
@@ -143,8 +144,10 @@ namespace Practica2
         public static bool ValidarNIF(string NIF)
         {
             if (NIF == "")
+            {
                 return false;
-            try
+            }
+            else
             {
                 //Obtenemos la letra del NIF (el último carácter)
                 String letra = NIF.Substring(NIF.Length - 1, 1);
@@ -155,17 +158,16 @@ namespace Practica2
                 int resto = nifNum % 23;
                 string letraResto = ObtenerLetra(resto);
                 if (letraResto != letra.ToUpper())
+                {
                     return false;
+                }
                 else
+                {
                     return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
+                }
             }
         }
 
-        //Obtiene la letra correspondiente al número
         private static string ObtenerLetra(int numero)
         {
             Dictionary<int, String> letras = new Dictionary<int, string>();
