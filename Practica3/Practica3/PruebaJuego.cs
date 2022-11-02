@@ -8,9 +8,11 @@
 
 
 using Practica3;
+using System.Xml;
+
 namespace Practica3
 {
-    class EjemploCalculadora
+    class PruebaJuego
     {
         public static void Main(string[] args)
         {
@@ -48,12 +50,11 @@ namespace Practica3
                                     {
                                         case 1:
                                             Console.Clear();
-                                            Console.WriteLine("Introduzca el tiempo máximo en segundos");
+                                            leerTiempoLimite();
                                             break;
 
                                         case 2:
-                                            Console.Clear();
-                                            Console.WriteLine("Introduzca el número de preguntas");
+                                            leerNumeroPreguntas();
                                             break;
 
                                         case 3:
@@ -80,7 +81,7 @@ namespace Practica3
                         case 2: //opción para llamar al método del cálculo de la tabla de multiplicar
                             try
                             {
-                                Console.WriteLine("Empecemos a jugar!!");
+                                jugar();
                             }
                             catch (System.FormatException) //controlamos la excepción para que solo introduzcan valores numéricos
                             {
@@ -114,8 +115,73 @@ namespace Practica3
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Número incorrecto");
                 }
-
             }
         }
-    } 
+
+        public static void leerTiempoLimite()
+        {
+            try
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Introduzca el tiempo máximo entre 3 y 10 segundos");
+                int time = Convert.ToInt16(Console.ReadLine());
+                if (time < 3 || time > 10)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Valores fuera de los límites");
+                    leerTiempoLimite();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Tiempo establecido correctamente!");
+                }
+            }
+            catch (FormatException) //controlamos la excepción para que solo introduzcan valores numéricos
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Valores numéricos únicamente");
+                leerTiempoLimite();
+            }
+        }
+
+        public static void leerNumeroPreguntas()
+        {
+            try
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Introduzca el número de preguntas máximo entre 1 y 10");
+                int numPreg = Convert.ToInt16(Console.ReadLine());
+                if (numPreg < 1 || numPreg > 10)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Valores fuera de los límites");
+                    leerNumeroPreguntas();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Número de preguntas establecido correctamente!");
+                }
+            }
+            catch (FormatException) //controlamos la excepción para que solo introduzcan valores numéricos
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Valores numéricos únicamente");
+                leerNumeroPreguntas();
+            }
+        }
+
+        public static void jugar()
+        {
+            Console.WriteLine("Empecemos a jugar!!");
+        }
+    }
+    
 }
