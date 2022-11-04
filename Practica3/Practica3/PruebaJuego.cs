@@ -14,6 +14,7 @@ namespace Practica3
 {
     class PruebaJuego
     {
+        private static int time = 10, numPreg = 10;
         public static void Main(string[] args)
         {
             Int16 optSelected = 0;
@@ -81,7 +82,7 @@ namespace Practica3
                         case 2: //opción para llamar al método del cálculo de la tabla de multiplicar
                             try
                             {
-                                jugar();
+                                jugar(time, numPreg);
                             }
                             catch (System.FormatException) //controlamos la excepción para que solo introduzcan valores numéricos
                             {
@@ -104,13 +105,13 @@ namespace Practica3
                             break;
                     }
                 }
-                catch (System.FormatException) //controlamos la excepción para que solo introduzcan valores numéricos
+                catch (FormatException) //controlamos la excepción para que solo introduzcan valores numéricos
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Valores numéricos únicamente");
                 }
-                catch (System.OverflowException) //controlamos la excepción para que solo introduzcan valores numéricos
+                catch (OverflowException) //controlamos la excepción para que solo introduzcan valores numéricos
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Número incorrecto");
@@ -124,7 +125,7 @@ namespace Practica3
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Introduzca el tiempo máximo entre 3 y 10 segundos");
-                int time = Convert.ToInt16(Console.ReadLine());
+                time = Convert.ToInt16(Console.ReadLine());
                 if (time < 3 || time > 10)
                 {
                     Console.Clear();
@@ -154,7 +155,7 @@ namespace Practica3
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Introduzca el número de preguntas máximo entre 1 y 10");
-                int numPreg = Convert.ToInt16(Console.ReadLine());
+                numPreg = Convert.ToInt16(Console.ReadLine());
                 if (numPreg < 1 || numPreg > 10)
                 {
                     Console.Clear();
@@ -178,9 +179,40 @@ namespace Practica3
             }
         }
 
-        public static void jugar()
+        public static void jugar(int time, int numPreg)
         {
             Console.WriteLine("Empecemos a jugar!!");
+            JuegoMultiplicar myGame = new JuegoMultiplicar();
+            myGame.TimeProp = time;
+
+            for (int i = 1; i <= numPreg; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                myGame.generarOperandos();
+                Console.WriteLine(myGame.Operando1Prop + " * " + myGame.Operando2Prop);
+                int userRes = Convert.ToInt16(Console.ReadLine());
+
+                if (userRes == (myGame.Operando1Prop * myGame.Operando2Prop))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Correcto!!");
+                    myGame.marcador(true);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error!");
+                    myGame.marcador(false);
+                }
+
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("\nAciertos: " + myGame.AciertosProp +
+                    "\nFallos: " + myGame.FallosProp);
+
+                Console.WriteLine(myGame.AciertosProp + " / " + i);
+            }
+            double nota = (myGame.AciertosProp * 10) / numPreg;
+            Console.WriteLine("Nota: " + nota.ToString("0.##"));
         }
     }
     
