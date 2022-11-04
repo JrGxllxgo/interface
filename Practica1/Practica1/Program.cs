@@ -27,28 +27,55 @@ namespace Practica1
             Console.WriteLine("Introduzca la marca");
             marca = Console.ReadLine();
 
+            while (marca.Equals(""))
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Nombre de la marca no puede ser nulo");
+                Console.ForegroundColor = ConsoleColor.White;
+                marca = Console.ReadLine();
+            }
+
             try
             {
                 Console.WriteLine("Introduzca el número de pulgadas");
                 pulgadas = Convert.ToByte(Console.ReadLine());
 
+                while(pulgadas < 0 || pulgadas > 262)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Número de pulgadas fuera de límites");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    pulgadas = Convert.ToByte(Console.ReadLine());
+                }
+
                 Console.WriteLine("Introduzca el consumo");
                 consumo = Convert.ToByte(Console.ReadLine());
+
+                while (consumo < 0 || consumo > 174)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Número de cosumo fuera de límites");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    consumo = Convert.ToByte(Console.ReadLine());
+                }
 
                 Console.WriteLine("Introduzca el precio");
                 String precioString = Console.ReadLine();
                 precio = Convert.ToDouble(precioString.Replace(".", ","));
 
-                if (precio < 0)
+                while (precio < 0)
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Precio no puede seguir negativo");
-                    Main(args); //con esta llamada hacemos que se reinicie el programa para volver a pedir los datos
+                    Console.WriteLine("Precio no puede seguir negativo, re introduzca datos");
+                    precio = Convert.ToDouble(precioString.Replace(".", ","));
                 }
 
             }
-            catch (System.FormatException)
+            catch (FormatException)
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -56,7 +83,7 @@ namespace Practica1
 
                 Main(args); //con esta llamada hacemos que se reinicie el programa para volver a pedir los datos
             }
-            catch (System.OverflowException)
+            catch (OverflowException)
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -110,13 +137,13 @@ namespace Practica1
                             break;
                     }
                 }
-                catch (System.OverflowException) //cojemos la excepcion por si escribe un valor muy largo
+                catch (OverflowException) //cojemos la excepcion por si escribe un valor muy largo
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error en la introduccion de la opción");
                 }
-                catch (System.FormatException) //cojemos la excepcion por si se escribe un valor incorrecto
+                catch (FormatException) //cojemos la excepcion por si se escribe un valor incorrecto
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
