@@ -71,18 +71,36 @@ namespace Practica2
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 miNomina.FechaNominaProp = DateTime.Parse(Console.ReadLine());
+
+                while(miNomina.FechaNominaProp.Year < (DateTime.Now.Year - 50) || miNomina.FechaNominaProp.Year > DateTime.Now.Year)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error en la fecha introducida, inténtelo otra vez: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    miNomina.FechaNominaProp = DateTime.Parse(Console.ReadLine());
+                }
             }
             catch (FormatException)
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Formato de la fecha es incorrecto");
+                Console.WriteLine("Formato de la fecha es incorrecto (se ha establecido la fecha actual");
                 miNomina.FechaNominaProp = DateTime.Now;
             }
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Horas extras: ");
             Console.ForegroundColor = ConsoleColor.White;
             miNomina.NumHorasExtrasProp = Convert.ToInt32(Console.ReadLine());
+
+            while(miNomina.NumHorasExtrasProp < 0 || miNomina.NumHorasExtrasProp > 80)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Horas extras fuera de límites (min.0 -- max.80)");
+                Console.ForegroundColor = ConsoleColor.White;
+                miNomina.NumHorasExtrasProp = Convert.ToInt32(Console.ReadLine());
+            }
             return miNomina;
         }
 
@@ -95,6 +113,14 @@ namespace Practica2
             Console.WriteLine("Nombre: ");
             Console.ForegroundColor = ConsoleColor.White;
             miEmpleado.NombreProp = Console.ReadLine();
+            while (miEmpleado.NombreProp.Equals(""))
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("El nombre no puede ser nulo");
+                Console.ForegroundColor = ConsoleColor.White;
+                miEmpleado.NombreProp = Console.ReadLine();
+            }
 
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("N.I.F.: ");
@@ -139,6 +165,15 @@ namespace Practica2
             Console.WriteLine("Trienios: ");
             Console.ForegroundColor = ConsoleColor.White;
             miEmpleado.NumTrieniosProp = Convert.ToInt32(Console.ReadLine());
+
+            while (miEmpleado.NumTrieniosProp < 0 || miEmpleado.NumTrieniosProp > 120)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Trienios fuera de límites (min.0 -- max.120)");
+                Console.ForegroundColor = ConsoleColor.White;
+                miEmpleado.NumTrieniosProp = Convert.ToInt32(Console.ReadLine());
+            }
         }
 
         public static bool ValidarNIF(string NIF)

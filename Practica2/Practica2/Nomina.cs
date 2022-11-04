@@ -148,7 +148,7 @@ namespace Practica2
 
         public void showNomina()
         {
-            Console.WriteLine("\nLIQUIDACION DE HABERES AL " + FechaNominaProp);
+            Console.WriteLine("\nLIQUIDACION DE HABERES AL " + FechaNominaProp.Day + "-" + FechaNominaProp.Month + "-" + FechaNominaProp.Year);
             Console.WriteLine("\nDEVENGOS\t\t\t\tDESCUENTOS" +
                 "\n----------\t\t\t\t----------" +
                 "\nSalario Base\t\t" + miEmpleado.SalarioBaseProp + "\t\tCotizacion Seg.Soc.\t" + CotASegSocial(miEmpleado) +
