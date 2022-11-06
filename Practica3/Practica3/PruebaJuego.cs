@@ -187,32 +187,66 @@ namespace Practica3
 
             for (int i = 1; i <= numPreg; i++)
             {
+                Console.Clear();
+                DateTime startTime = DateTime.Now;
                 Console.ForegroundColor = ConsoleColor.White;
                 myGame.generarOperandos();
                 Console.WriteLine(myGame.Operando1Prop + " * " + myGame.Operando2Prop);
-                int userRes = Convert.ToInt16(Console.ReadLine());
+                string answer = "";
+                ConsoleKeyInfo key = new ConsoleKeyInfo((char)ConsoleKey.Backspace, ConsoleKey.Backspace, false, false, false);
+                TimeSpan t = DateTime.Now - startTime;
+                int timeUsed = int.Parse(t.Seconds.ToString());
 
-                if (userRes == (myGame.Operando1Prop * myGame.Operando2Prop))
+                do
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Correcto!!");
-                    myGame.marcador(true);
-                }
-                else
+                    t = DateTime.Now - startTime;
+                    timeUsed = int.Parse(t.Seconds.ToString());
+                    if (Console.KeyAvailable)
+                    {
+                        key = Console.ReadKey();
+                        answer += key.Key;
+                        answer = answer.Replace("D", "");
+                    }
+                    else
+                    {
+                        Thread.Sleep(100);
+                    }
+                }while(timeUsed < myGame.TimeProp && key.Key != ConsoleKey.Enter);
+                try
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error!");
-                    myGame.marcador(false);
+                    answer = answer.Replace("Enter", "");
+                    int integerAnswer = Convert.ToInt32(answer);
+                    if (integerAnswer == Convert.ToInt32(myGame.Operando1Prop * myGame.Operando2Prop))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Correcto!!");
+                        myGame.marcador(true);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error!");
+                        myGame.marcador(false);
+                    }
                 }
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Tiempo límite alcanzado");
+                }
+                
 
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("\nAciertos: " + myGame.AciertosProp +
                     "\nFallos: " + myGame.FallosProp);
 
                 Console.WriteLine(myGame.AciertosProp + " / " + i);
+                Console.WriteLine("Pulsa enter para continuar jugando");
+                Console.ReadLine();
             }
+
             double nota = (myGame.AciertosProp * 10) / numPreg;
-            Console.WriteLine("Nota: " + nota.ToString("0.##"));
+            Console.WriteLine("Nota de Partida: " + nota.ToString("0.##"));
         }
     }
     
