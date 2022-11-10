@@ -15,7 +15,10 @@ namespace Practica4
 
             while (txtUser == null || txtUser.Equals(""))
             {
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(txt);
+                Console.ForegroundColor = ConsoleColor.White;
                 txtUser = Console.ReadLine();
 
                 if (txtUser.Equals(""))
@@ -35,7 +38,9 @@ namespace Practica4
             {
                 try
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine(txt);
+                    Console.ForegroundColor = ConsoleColor.White;
                     num = Convert.ToInt32(Console.ReadLine());
 
                     if (num < limInf)
@@ -52,12 +57,14 @@ namespace Practica4
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error en la introduccion del número");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 catch (FormatException) //excepcion por si escribe texto
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error en la introduccion del número");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             return num;

@@ -48,7 +48,7 @@ namespace Practica4
 
         public override void imprimir()
         {
-            Console.WriteLine("---------- DATOS INTRODUCIDOS ----------" +
+            Console.WriteLine("---------- DATOS DVD ----------" +
                 "\nReferencia -->\t\t" + Referencia +
                 "\nTítulo -->\t\t" + Titulo +
                 "\nDirector -->\t\t" + Director +

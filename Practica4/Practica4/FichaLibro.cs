@@ -41,7 +41,7 @@ namespace Practica4
 
         public override void imprimir()
         {
-            Console.WriteLine("---------- DATOS INTRODUCIDOS ----------" +
+            Console.WriteLine("---------- DATOS LIBRO ----------" +
                 "\nReferencia -->\t\t" + Referencia +
                 "\nTítulo -->\t\t" + Titulo +
                 "\nAutor -->\t\t" + Autor +
