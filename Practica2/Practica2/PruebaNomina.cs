@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace Practica2
 {
-    class Program
+    class PruebaNomina
     {
         public static void Main(String[] args)
         {

@@ -16,7 +16,7 @@ namespace Practica2
 {
     class Empleado
     {
-        #region values
+        #region atributos
         private int categoria, numHijos, numTrienios, salarioBase;
         private string nif, nombre;
         #endregion

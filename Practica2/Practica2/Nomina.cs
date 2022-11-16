@@ -17,12 +17,11 @@ namespace Practica2
 {
     class Nomina
     {
-        #region valores
+        #region atributos
         private Empleado miEmpleado;
         private Empleado empleadoNomina;
         private DateTime fechaNomina;
         private int numHorasExtras, porcIRPF;
-        private double liquido, retIRPF;
         #endregion
 
         public Nomina(Empleado miEmpleado)
@@ -107,7 +106,7 @@ namespace Practica2
 
         public double CotASegSocial(Empleado miEmpleado)
         {
-            return BasCot(miEmpleado) * 4.51 / 100;
+            return Math.Round((BasCot(miEmpleado) * 4.51 / 100),2);
         }
 
         public double BasCot(Empleado miEmpledao)
@@ -122,6 +121,7 @@ namespace Practica2
 
         public double LiquidoAPercibir(Empleado miEmpleado)
         {
+            double liquido;
             if (FechaNominaProp.Month == 12 || FechaNominaProp.Month == 6)
             {
                 liquido = TotalDevengado(miEmpleado) + DevengosPagaExtra(miEmpleado) - TotalDescuentos(miEmpleado);
@@ -135,15 +135,16 @@ namespace Practica2
 
         public double RetIrpf(Empleado miEmpleado)
         {
+            double retIrpf;
             if (FechaNominaProp.Month == 12 || FechaNominaProp.Month == 6)
             {
-                retIRPF = (TotalDevengado(miEmpleado) + DevengosPagaExtra(miEmpleado) * porcIRPF / 100);
+                retIrpf = (TotalDevengado(miEmpleado) + DevengosPagaExtra(miEmpleado) * porcIRPF / 100);
             }
             else
             {
-                retIRPF = TotalDevengado(miEmpleado) * porcIRPF / 100;
+                retIrpf = TotalDevengado(miEmpleado) * porcIRPF / 100;
             }
-            return retIRPF;
+            return retIrpf;
         }
 
         public void showNomina()
@@ -155,10 +156,12 @@ namespace Practica2
                 "\nAntigüedad\t\t" + ImporteAntiguedad(miEmpleado) + "\t\tCotizacion Seg.Des.\t" + CotSegDes(miEmpleado) +
                 "\nImporte Hor.Extr.\t" + ImporteHorasExtras(miEmpleado) + "\t\tRetención I.R.P.F\t" + RetIrpf(miEmpleado) +
                 "\nPaga Extra\t\t" + DevengosPagaExtra(miEmpleado) + 
-                "\n\nTotal Devengos\t\t" + TotalDevengado(miEmpleado) + "\t\tTotal Descuentos\t" + TotalDescuentos(miEmpleado) +
-                "\n\n************************************" +
+                "\n\nTotal Devengos\t\t" + TotalDevengado(miEmpleado) + "\t\tTotal Descuentos\t" + TotalDescuentos(miEmpleado));
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n\n************************************" +
                 "\nLIQUIDO A PERCIBIR\t" + LiquidoAPercibir(miEmpleado) +
                 "\n************************************");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
