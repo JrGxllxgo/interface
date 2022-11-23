@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+* PRÁCTICA.............: Práctica 5.
+* NOMBRE Y APELLIDOS...: José Ramón Gallego Vélez
+* CURSO Y GRUPO........: 2º Desarrollo de Interfaces
+* TÍTULO DE LA PRÁCTICA: Estructuras de Datos Internas y Manejo de Ficheros.
+* FECHA DE ENTREGA.....: 18 de noviembre de 2022
+*/
 
 namespace Practica5
 {
@@ -27,6 +29,11 @@ namespace Practica5
         public string[] Codsignaturas
         {
             get { return codsignaturas; }
+        }
+
+        public List<Alumno> Alumnos
+        {
+            get { return alumnos; }
         }
         #endregion
 
@@ -71,11 +78,11 @@ namespace Practica5
         public bool borraAlumno(int numMatricula)
         {
             int pos = localizaAlumno(numMatricula);
-
             bool del = false;
 
             if(pos != 1)
             {
+                alumnos.RemoveAt(pos);
                 del = true;
             }
 
@@ -84,7 +91,7 @@ namespace Practica5
 
         public double mediaAsignatura(int posicionAs)
         {
-            int media = 0;
+            double media = 0;
             for (int i = 0; i < alumnos.Count; i++)
             {
                 media += alumnos[i].Notas[posicionAs];
@@ -92,7 +99,5 @@ namespace Practica5
             media = media / alumnos.Count;
             return media;
         }
-
-        public 
     }
 }
