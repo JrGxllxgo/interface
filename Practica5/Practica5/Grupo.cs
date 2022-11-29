@@ -41,7 +41,7 @@ namespace Practica5
         {
             this.nombreGrupo = nombreGrupo;
             this.numAsignaturas = numAsignaturas;
-            this.codsignaturas = codsignaturas;
+            this.codsignaturas = codAsignaturas;
             this.alumnos = new List<Alumno>();
         }
 

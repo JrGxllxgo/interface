@@ -72,5 +72,12 @@ namespace Practica5
             Console.WriteLine("Pulsa cualquier tecla si desea continuar");
             Console.ReadKey();
         }
+        public static void writeError(string txt)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(txt);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 }

@@ -52,6 +52,7 @@ namespace Practica5
                         Auxiliar.continueKey();
                         break;
                     case 4:
+                        imprimirHeader(myGroup);
                         imprimirActa(myGroup);
                         Auxiliar.continueKey();
                         break;
@@ -60,95 +61,80 @@ namespace Practica5
                         Auxiliar.continueKey();
                         break;
                     case 6:
+                        Auxiliar.continueKey();
                         break;
                     case 7:
                         Console.WriteLine("Hasta luego!!!");
                         Environment.Exit(0);
                         break;
                     default: //mensaje predefinido que saldrá cuando introduzcan un valor numérico que no está entre las opciones
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Opción no válida");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Auxiliar.writeError("Opción no válida");
                         Auxiliar.continueKey();
                         break;
                 }
             }
         }
 
-        private static void imprimirFila(string[] fila)
+        private static void imprimirFila(List<Alumno> alumnos)
         {
-            for (int i = 0; i < fila.Length - 1; i++)
+            int cursor = 31;
+            for (int i = 0; i < alumnos.Count; i++)
             {
-                Console.SetCursorPosition(cursor[i], Console.CursorTop);
-                Console.Write(fila[i]);
+                cursor = 31;
+                Console.Write(alumnos[i].NumMatr);
+                Console.SetCursorPosition(10, Console.CursorTop);
+                Console.Write(alumnos[i].Nombre);
+                Console.SetCursorPosition(cursor, Console.CursorTop);
+
+                for (int j = 0; j < alumnos[i].Notas.Length; j++)
+                {
+                    Console.Write(alumnos[i].Notas[j]);
+                    Console.SetCursorPosition(cursor, Console.CursorTop);
+                    cursor += 5;
+                }
+
+                Console.SetCursorPosition(cursor + 2, Console.CursorTop);
+
+                Console.Write(alumnos[i].mediaAlumno());
+
+                Console.WriteLine();
             }
+
+        }
+        private static void imprimirHeader(Grupo myGroup)
+        {
+            int cursor = 30;
+            Console.Write("MATRÍCULA");
+            Console.SetCursorPosition(10, Console.CursorTop);
+            Console.Write("NOMBRE");
+            Console.SetCursorPosition(cursor, Console.CursorTop);
+
+            for (int i = 0; i< myGroup.Codsignaturas.Length; i++)
+            {
+                Console.Write(myGroup.Codsignaturas[i]);
+                Console.SetCursorPosition(cursor, Console.CursorTop);
+                cursor+= 5;
+            }
+            Console.SetCursorPosition(cursor + 2, Console.CursorTop);
+            Console.Write("MEDIA");
             Console.WriteLine();
         }
-        private static void imprimirHeader(string[] fila)
-        {
-            cursor = new List<int>();
 
-            for (int i = 0; i < fila.Length - 1; i++)
-            {
-                cursor.Add(Console.CursorLeft);
-                Console.WriteLine(cursor[i]);
-                if (i == 1)
-                {
-                    Console.SetCursorPosition(Console.CursorLeft + 10, Console.CursorTop);
-                }
-                else
-                {
-                    Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
-                }
-            }
-
-            cursor.Add(Console.CursorLeft);
-            Console.WriteLine(fila[fila.Length - 1]);
-        }
-        //falta imprimir las filas
         private static void imprimirActa(Grupo myGroup)
         {
             if (myGroup.Alumnos.Count == 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("No hay alumnos registrados");
-                Console.ForegroundColor = ConsoleColor.White;
+                Auxiliar.writeError("No hay alumnos registrados");
             }
             else
             {
                 myGroup.Alumnos.Sort();
 
-                List<string> fila;
-
-                imprimirHeader(header.ToArray());
-
-                for (int i = 0; i < myGroup.Alumnos.Count; i++)
+                for(int i = 0; i < myGroup.Alumnos.Count; i++)
                 {
-                    fila = new List<string>();
-
-                    fila.Add(Convert.ToString(myGroup.Alumnos[i].NumMatr));
-
-                    fila.Add(myGroup.Alumnos[i].Nombre);
-
-                    imprimirNotas(myGroup.Alumnos[i], fila);
-
-                    fila.Add(Convert.ToString(myGroup.Alumnos[i].mediaAlumno));
+                    imprimirFila(myGroup.Alumnos);
                 }
 
-                fila = new List<string>();
-
-                fila.Add("MEDIAS");
-                fila.Add("");
-
-                for (int i = 0; i < myGroup.Alumnos[0].Notas.Length; i++)
-                {
-                    fila.Add(Convert.ToString(myGroup.mediaAsignatura(i)));
-                }
-
-                imprimirFila(fila.ToArray());
-
-                Console.WriteLine();
             }
         }
 
@@ -175,17 +161,13 @@ namespace Practica5
 
         private static void consultaAlumno(Grupo myGroup)
         {
-            try
+            Alumno alumno = myGroup.buscaAlumno(Auxiliar.solicitarEnteroRango(0, myGroup.Alumnos.Count, "Introduzca el numero de matricula"));
+            while (alumno == null)
             {
-                Alumno alumno = myGroup.buscaAlumno(Auxiliar.solicitarEnteroRango(0, myGroup.Alumnos.Count, "Introduzca el numero de matricula"));
-                alumno.imprimeAlumno();
+                Auxiliar.writeError("El alumno con esa matrícula no existe.");
+                alumno = myGroup.buscaAlumno(Auxiliar.solicitarEnteroRango(0, myGroup.Alumnos.Count, "Introduzca el numero de matricula que exista"));
             }
-            catch (NullReferenceException)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Alumno no existe");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
+            alumno.imprimeAlumno();
         }
 
         private static void borrarAlumno(Grupo myGroup)
@@ -193,15 +175,13 @@ namespace Practica5
             try
             {
                 myGroup.borraAlumno(Auxiliar.solicitarEnteroRango(0, myGroup.Alumnos.Count, "Introduzca el numero de matricula"));
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Alumno borrado con éxito");
                 Console.ForegroundColor = ConsoleColor.White;
             }
             catch (ArgumentOutOfRangeException)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Matrícula no existe");
-                Console.ForegroundColor = ConsoleColor.White;
+                Auxiliar.writeError("Matrícula no existe");
             }
         }
 
@@ -213,7 +193,7 @@ namespace Practica5
 
             for (int i = 0; i < notas.Length; i++)
             {
-                notas[i] = Auxiliar.solicitarEnteroRango(0, 10, "Introduzca la nota del 0 al 10");
+                notas[i] = Auxiliar.solicitarEnteroRango(0, 10, "Introduzca la nota del 0 al 10 de " + myGroup.Codsignaturas[i]);
             }
 
             return new Alumno(nombre, notas);
@@ -241,9 +221,7 @@ namespace Practica5
 
                     if (asignatura.Length > 3)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("No puede ser más de tres carácteres");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Auxiliar.writeError("No puede ser más de tres carácteres");
                         asignatura = Auxiliar.leerCadena("Asignatura " + i).ToUpper();
                     }
                 }
