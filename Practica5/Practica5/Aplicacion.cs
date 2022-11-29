@@ -61,6 +61,7 @@ namespace Practica5
                         Auxiliar.continueKey();
                         break;
                     case 6:
+                        readData(myGroup);
                         Auxiliar.continueKey();
                         break;
                     case 7:
@@ -72,6 +73,41 @@ namespace Practica5
                         Auxiliar.continueKey();
                         break;
                 }
+            }
+        }
+
+        private static void readData(Grupo myGroup)
+        {
+            StreamReader myFile = File.OpenText("D:\\2 DAM\\Interface\\prueba.txt");
+
+            string linea;
+            int cont = 0;
+
+            while((linea = myFile.ReadLine()) != null)
+            {
+
+                string[] data = linea.Split(';');
+
+                string[] notas = data[2].Split(',');
+
+                float[] notasRecuperadas = new float[notas.Length];
+
+                for(int i = 0; i < notas.Length; i++)
+                {
+                    notasRecuperadas[i] = float.Parse(notas[i].Trim());
+                }
+
+                myGroup.anadirAlumno(new Alumno( data[1], notasRecuperadas));
+
+                cont++;
+            }
+            if(cont == 0)
+            {
+                Auxiliar.writeError("No se ha recuperado ningún dato");
+            }
+            else
+            {
+                Console.WriteLine("Se han recuperado los datos correctamente");
             }
         }
 
@@ -101,6 +137,7 @@ namespace Practica5
             }
 
         }
+
         private static void imprimirHeader(Grupo myGroup)
         {
             int cursor = 30;
