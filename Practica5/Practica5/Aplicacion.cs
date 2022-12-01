@@ -83,7 +83,7 @@ namespace Practica5
             string linea;
             int cont = 0;
 
-            while((linea = myFile.ReadLine()) != null)
+            while ((linea = myFile.ReadLine()) != null)
             {
 
                 string[] data = linea.Split(';');
@@ -92,16 +92,16 @@ namespace Practica5
 
                 float[] notasRecuperadas = new float[notas.Length];
 
-                for(int i = 0; i < notas.Length; i++)
+                for (int i = 0; i < notas.Length; i++)
                 {
                     notasRecuperadas[i] = float.Parse(notas[i].Trim());
                 }
 
-                myGroup.anadirAlumno(new Alumno( data[1], notasRecuperadas));
+                myGroup.anadirAlumno(new Alumno(data[1], notasRecuperadas));
 
                 cont++;
             }
-            if(cont == 0)
+            if (cont == 0)
             {
                 Auxiliar.writeError("No se ha recuperado ningún dato");
             }
@@ -146,11 +146,11 @@ namespace Practica5
             Console.Write("NOMBRE");
             Console.SetCursorPosition(cursor, Console.CursorTop);
 
-            for (int i = 0; i< myGroup.Codsignaturas.Length; i++)
+            for (int i = 0; i < myGroup.Codsignaturas.Length; i++)
             {
                 Console.Write(myGroup.Codsignaturas[i]);
                 Console.SetCursorPosition(cursor, Console.CursorTop);
-                cursor+= 5;
+                cursor += 5;
             }
             Console.SetCursorPosition(cursor + 2, Console.CursorTop);
             Console.Write("MEDIA");
@@ -167,11 +167,7 @@ namespace Practica5
             {
                 myGroup.Alumnos.Sort();
 
-                for(int i = 0; i < myGroup.Alumnos.Count; i++)
-                {
-                    imprimirFila(myGroup.Alumnos);
-                }
-
+                imprimirFila(myGroup.Alumnos);
             }
         }
 
