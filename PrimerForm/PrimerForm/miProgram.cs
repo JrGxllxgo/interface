@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace PrimerForm
 {
-    internal static class Program
+    internal static class miProgram
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -16,7 +16,7 @@ namespace PrimerForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new frmMainApp());
         }
     }
 }
