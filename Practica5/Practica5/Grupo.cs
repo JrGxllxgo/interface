@@ -37,7 +37,7 @@ namespace Practica5
         }
         #endregion
 
-        public Grupo(String nombreGrupo, int numAsignaturas, string[] codAsignaturas)
+        public Grupo(string nombreGrupo, int numAsignaturas, string[] codAsignaturas)
         {
             this.nombreGrupo = nombreGrupo;
             this.numAsignaturas = numAsignaturas;

@@ -79,7 +79,7 @@ namespace Practica5
 
         public override string ToString()
         {
-            return "Matrícula: " + numMatr + "||Nombre: " + Nombre + "||Notas: " + showNotas() + "||Media: " + mediaAlumno();
+            return numMatr + ";" + Nombre + ";" + showNotas() + ";" + mediaAlumno();
         }
     }
 }
