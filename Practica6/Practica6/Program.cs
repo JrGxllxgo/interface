@@ -18,5 +18,8 @@ namespace Practica6
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmHojaSalarial());
         }
+
+
+
     }
 }

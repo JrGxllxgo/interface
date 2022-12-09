@@ -28,24 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHojaSalarial));
             this.grBData = new System.Windows.Forms.GroupBox();
+            this.maskTxtBNIF = new System.Windows.Forms.MaskedTextBox();
+            this.comBCat = new System.Windows.Forms.ComboBox();
             this.btnCalc = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
             this.datePck = new System.Windows.Forms.DateTimePicker();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.lblHours = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.lblTrn = new System.Windows.Forms.Label();
-            this.txtBChld = new System.Windows.Forms.TextBox();
             this.lblHijos = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.lblCat = new System.Windows.Forms.Label();
             this.txtBName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
-            this.txtBNIF = new System.Windows.Forms.TextBox();
             this.lblNif = new System.Windows.Forms.Label();
             this.grBResult = new System.Windows.Forms.GroupBox();
+            this.txtBLiq = new System.Windows.Forms.TextBox();
+            this.lblLiq = new System.Windows.Forms.Label();
+            this.txtBTotDes = new System.Windows.Forms.TextBox();
+            this.lblTotDes = new System.Windows.Forms.Label();
+            this.txtBTotDev = new System.Windows.Forms.TextBox();
+            this.lblTotDev = new System.Windows.Forms.Label();
+            this.btnMod = new System.Windows.Forms.Button();
+            this.txtBRetIRPF = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.lblCotSegDes = new System.Windows.Forms.Label();
+            this.txtBCotSegSoc = new System.Windows.Forms.TextBox();
+            this.lblCotSegSoc = new System.Windows.Forms.Label();
             this.txtBPE = new System.Windows.Forms.TextBox();
             this.lblPE = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -55,39 +66,25 @@
             this.btnSalir = new System.Windows.Forms.Button();
             this.txtBSB = new System.Windows.Forms.TextBox();
             this.lblSB = new System.Windows.Forms.Label();
-            this.txtBRetIRPF = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.lblCotSegDes = new System.Windows.Forms.Label();
-            this.txtBCotSegSoc = new System.Windows.Forms.TextBox();
-            this.lblCotSegSoc = new System.Windows.Forms.Label();
-            this.btnMod = new System.Windows.Forms.Button();
-            this.txtBTotDev = new System.Windows.Forms.TextBox();
-            this.lblTotDev = new System.Windows.Forms.Label();
-            this.txtBTotDes = new System.Windows.Forms.TextBox();
-            this.lblTotDes = new System.Windows.Forms.Label();
-            this.txtBLiq = new System.Windows.Forms.TextBox();
-            this.lblLiq = new System.Windows.Forms.Label();
+            this.errorNif = new System.Windows.Forms.ErrorProvider(this.components);
             this.grBData.SuspendLayout();
             this.grBResult.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorNif)).BeginInit();
             this.SuspendLayout();
             // 
             // grBData
             // 
+            this.grBData.Controls.Add(this.maskTxtBNIF);
+            this.grBData.Controls.Add(this.comBCat);
             this.grBData.Controls.Add(this.btnCalc);
             this.grBData.Controls.Add(this.lblDate);
             this.grBData.Controls.Add(this.datePck);
-            this.grBData.Controls.Add(this.textBox3);
             this.grBData.Controls.Add(this.lblHours);
-            this.grBData.Controls.Add(this.textBox2);
             this.grBData.Controls.Add(this.lblTrn);
-            this.grBData.Controls.Add(this.txtBChld);
             this.grBData.Controls.Add(this.lblHijos);
-            this.grBData.Controls.Add(this.textBox1);
             this.grBData.Controls.Add(this.lblCat);
             this.grBData.Controls.Add(this.txtBName);
             this.grBData.Controls.Add(this.lblName);
-            this.grBData.Controls.Add(this.txtBNIF);
             this.grBData.Controls.Add(this.lblNif);
             this.grBData.Location = new System.Drawing.Point(40, 12);
             this.grBData.Name = "grBData";
@@ -97,6 +94,23 @@
             this.grBData.Text = "Introducción de datos";
             this.grBData.Enter += new System.EventHandler(this.grBData_Enter);
             // 
+            // maskTxtBNIF
+            // 
+            this.maskTxtBNIF.Location = new System.Drawing.Point(70, 34);
+            this.maskTxtBNIF.Name = "maskTxtBNIF";
+            this.maskTxtBNIF.Size = new System.Drawing.Size(86, 20);
+            this.maskTxtBNIF.TabIndex = 18;
+            this.maskTxtBNIF.Leave += new System.EventHandler(this.maskTxtBNIF_Leave);
+            // 
+            // comBCat
+            // 
+            this.comBCat.FormattingEnabled = true;
+            this.comBCat.Location = new System.Drawing.Point(71, 120);
+            this.comBCat.Name = "comBCat";
+            this.comBCat.Size = new System.Drawing.Size(43, 21);
+            this.comBCat.TabIndex = 17;
+            this.comBCat.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // btnCalc
             // 
             this.btnCalc.Location = new System.Drawing.Point(578, 188);
@@ -105,6 +119,7 @@
             this.btnCalc.TabIndex = 16;
             this.btnCalc.Text = "CALCULAR";
             this.btnCalc.UseVisualStyleBackColor = true;
+            this.btnCalc.Click += new System.EventHandler(this.btnCalc_Click);
             // 
             // lblDate
             // 
@@ -127,13 +142,6 @@
             this.datePck.TabIndex = 14;
             this.datePck.Value = new System.DateTime(2022, 12, 2, 0, 0, 0, 0);
             // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(479, 125);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(18, 20);
-            this.textBox3.TabIndex = 13;
-            // 
             // lblHours
             // 
             this.lblHours.AutoSize = true;
@@ -144,13 +152,6 @@
             this.lblHours.Text = "Nº Horas Extra";
             this.lblHours.UseWaitCursor = true;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(314, 125);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(18, 20);
-            this.textBox2.TabIndex = 11;
-            // 
             // lblTrn
             // 
             this.lblTrn.AutoSize = true;
@@ -160,13 +161,6 @@
             this.lblTrn.TabIndex = 10;
             this.lblTrn.Text = "Nº Trienios";
             // 
-            // txtBChld
-            // 
-            this.txtBChld.Location = new System.Drawing.Point(178, 125);
-            this.txtBChld.Name = "txtBChld";
-            this.txtBChld.Size = new System.Drawing.Size(18, 20);
-            this.txtBChld.TabIndex = 9;
-            // 
             // lblHijos
             // 
             this.lblHijos.AutoSize = true;
@@ -175,14 +169,6 @@
             this.lblHijos.Size = new System.Drawing.Size(45, 13);
             this.lblHijos.TabIndex = 8;
             this.lblHijos.Text = "Nº Hijos";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(69, 125);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(18, 20);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // lblCat
             // 
@@ -211,13 +197,6 @@
             this.lblName.TabIndex = 4;
             this.lblName.Text = "Nombre";
             this.lblName.Click += new System.EventHandler(this.label1_Click_1);
-            // 
-            // txtBNIF
-            // 
-            this.txtBNIF.Location = new System.Drawing.Point(69, 30);
-            this.txtBNIF.Name = "txtBNIF";
-            this.txtBNIF.Size = new System.Drawing.Size(92, 20);
-            this.txtBNIF.TabIndex = 3;
             // 
             // lblNif
             // 
@@ -258,6 +237,112 @@
             this.grBResult.TabIndex = 1;
             this.grBResult.TabStop = false;
             this.grBResult.Text = "Resultado";
+            // 
+            // txtBLiq
+            // 
+            this.txtBLiq.Location = new System.Drawing.Point(260, 288);
+            this.txtBLiq.Name = "txtBLiq";
+            this.txtBLiq.Size = new System.Drawing.Size(92, 20);
+            this.txtBLiq.TabIndex = 35;
+            // 
+            // lblLiq
+            // 
+            this.lblLiq.AutoSize = true;
+            this.lblLiq.Location = new System.Drawing.Point(175, 291);
+            this.lblLiq.Name = "lblLiq";
+            this.lblLiq.Size = new System.Drawing.Size(43, 13);
+            this.lblLiq.TabIndex = 34;
+            this.lblLiq.Text = "Líquido";
+            // 
+            // txtBTotDes
+            // 
+            this.txtBTotDes.Location = new System.Drawing.Point(375, 251);
+            this.txtBTotDes.Name = "txtBTotDes";
+            this.txtBTotDes.Size = new System.Drawing.Size(92, 20);
+            this.txtBTotDes.TabIndex = 33;
+            // 
+            // lblTotDes
+            // 
+            this.lblTotDes.AutoSize = true;
+            this.lblTotDes.Location = new System.Drawing.Point(278, 254);
+            this.lblTotDes.Name = "lblTotDes";
+            this.lblTotDes.Size = new System.Drawing.Size(91, 13);
+            this.lblTotDes.TabIndex = 32;
+            this.lblTotDes.Text = "Total Descuentos";
+            // 
+            // txtBTotDev
+            // 
+            this.txtBTotDev.Location = new System.Drawing.Point(117, 251);
+            this.txtBTotDev.Name = "txtBTotDev";
+            this.txtBTotDev.Size = new System.Drawing.Size(92, 20);
+            this.txtBTotDev.TabIndex = 31;
+            // 
+            // lblTotDev
+            // 
+            this.lblTotDev.AutoSize = true;
+            this.lblTotDev.Location = new System.Drawing.Point(32, 254);
+            this.lblTotDev.Name = "lblTotDev";
+            this.lblTotDev.Size = new System.Drawing.Size(83, 13);
+            this.lblTotDev.TabIndex = 30;
+            this.lblTotDev.Text = "Total Devengos";
+            // 
+            // btnMod
+            // 
+            this.btnMod.Location = new System.Drawing.Point(578, 230);
+            this.btnMod.Name = "btnMod";
+            this.btnMod.Size = new System.Drawing.Size(117, 41);
+            this.btnMod.TabIndex = 29;
+            this.btnMod.Text = "Modificar Datos";
+            this.btnMod.UseVisualStyleBackColor = true;
+            // 
+            // txtBRetIRPF
+            // 
+            this.txtBRetIRPF.Location = new System.Drawing.Point(433, 153);
+            this.txtBRetIRPF.Name = "txtBRetIRPF";
+            this.txtBRetIRPF.Size = new System.Drawing.Size(92, 20);
+            this.txtBRetIRPF.TabIndex = 28;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(278, 156);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Retención IRPF";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(433, 112);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(92, 20);
+            this.textBox6.TabIndex = 26;
+            // 
+            // lblCotSegDes
+            // 
+            this.lblCotSegDes.AutoSize = true;
+            this.lblCotSegDes.Location = new System.Drawing.Point(278, 115);
+            this.lblCotSegDes.Name = "lblCotSegDes";
+            this.lblCotSegDes.Size = new System.Drawing.Size(149, 13);
+            this.lblCotSegDes.TabIndex = 25;
+            this.lblCotSegDes.Text = "Cotización Seguro Desempleo";
+            // 
+            // txtBCotSegSoc
+            // 
+            this.txtBCotSegSoc.Location = new System.Drawing.Point(433, 76);
+            this.txtBCotSegSoc.Name = "txtBCotSegSoc";
+            this.txtBCotSegSoc.Size = new System.Drawing.Size(92, 20);
+            this.txtBCotSegSoc.TabIndex = 24;
+            // 
+            // lblCotSegSoc
+            // 
+            this.lblCotSegSoc.AutoSize = true;
+            this.lblCotSegSoc.Location = new System.Drawing.Point(278, 79);
+            this.lblCotSegSoc.Name = "lblCotSegSoc";
+            this.lblCotSegSoc.Size = new System.Drawing.Size(139, 13);
+            this.lblCotSegSoc.TabIndex = 23;
+            this.lblCotSegSoc.Text = "Cotización Seguridad Social";
             // 
             // txtBPE
             // 
@@ -334,111 +419,9 @@
             this.lblSB.TabIndex = 0;
             this.lblSB.Text = "Salario Base";
             // 
-            // txtBRetIRPF
+            // errorNif
             // 
-            this.txtBRetIRPF.Location = new System.Drawing.Point(433, 153);
-            this.txtBRetIRPF.Name = "txtBRetIRPF";
-            this.txtBRetIRPF.Size = new System.Drawing.Size(92, 20);
-            this.txtBRetIRPF.TabIndex = 28;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(278, 156);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "Retención IRPF";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(433, 112);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(92, 20);
-            this.textBox6.TabIndex = 26;
-            // 
-            // lblCotSegDes
-            // 
-            this.lblCotSegDes.AutoSize = true;
-            this.lblCotSegDes.Location = new System.Drawing.Point(278, 115);
-            this.lblCotSegDes.Name = "lblCotSegDes";
-            this.lblCotSegDes.Size = new System.Drawing.Size(149, 13);
-            this.lblCotSegDes.TabIndex = 25;
-            this.lblCotSegDes.Text = "Cotización Seguro Desempleo";
-            // 
-            // txtBCotSegSoc
-            // 
-            this.txtBCotSegSoc.Location = new System.Drawing.Point(433, 76);
-            this.txtBCotSegSoc.Name = "txtBCotSegSoc";
-            this.txtBCotSegSoc.Size = new System.Drawing.Size(92, 20);
-            this.txtBCotSegSoc.TabIndex = 24;
-            // 
-            // lblCotSegSoc
-            // 
-            this.lblCotSegSoc.AutoSize = true;
-            this.lblCotSegSoc.Location = new System.Drawing.Point(278, 79);
-            this.lblCotSegSoc.Name = "lblCotSegSoc";
-            this.lblCotSegSoc.Size = new System.Drawing.Size(139, 13);
-            this.lblCotSegSoc.TabIndex = 23;
-            this.lblCotSegSoc.Text = "Cotización Seguridad Social";
-            // 
-            // btnMod
-            // 
-            this.btnMod.Location = new System.Drawing.Point(578, 230);
-            this.btnMod.Name = "btnMod";
-            this.btnMod.Size = new System.Drawing.Size(117, 41);
-            this.btnMod.TabIndex = 29;
-            this.btnMod.Text = "Modificar Datos";
-            this.btnMod.UseVisualStyleBackColor = true;
-            // 
-            // txtBTotDev
-            // 
-            this.txtBTotDev.Location = new System.Drawing.Point(117, 251);
-            this.txtBTotDev.Name = "txtBTotDev";
-            this.txtBTotDev.Size = new System.Drawing.Size(92, 20);
-            this.txtBTotDev.TabIndex = 31;
-            // 
-            // lblTotDev
-            // 
-            this.lblTotDev.AutoSize = true;
-            this.lblTotDev.Location = new System.Drawing.Point(32, 254);
-            this.lblTotDev.Name = "lblTotDev";
-            this.lblTotDev.Size = new System.Drawing.Size(83, 13);
-            this.lblTotDev.TabIndex = 30;
-            this.lblTotDev.Text = "Total Devengos";
-            // 
-            // txtBTotDes
-            // 
-            this.txtBTotDes.Location = new System.Drawing.Point(375, 251);
-            this.txtBTotDes.Name = "txtBTotDes";
-            this.txtBTotDes.Size = new System.Drawing.Size(92, 20);
-            this.txtBTotDes.TabIndex = 33;
-            // 
-            // lblTotDes
-            // 
-            this.lblTotDes.AutoSize = true;
-            this.lblTotDes.Location = new System.Drawing.Point(278, 254);
-            this.lblTotDes.Name = "lblTotDes";
-            this.lblTotDes.Size = new System.Drawing.Size(91, 13);
-            this.lblTotDes.TabIndex = 32;
-            this.lblTotDes.Text = "Total Descuentos";
-            // 
-            // txtBLiq
-            // 
-            this.txtBLiq.Location = new System.Drawing.Point(260, 288);
-            this.txtBLiq.Name = "txtBLiq";
-            this.txtBLiq.Size = new System.Drawing.Size(92, 20);
-            this.txtBLiq.TabIndex = 35;
-            // 
-            // lblLiq
-            // 
-            this.lblLiq.AutoSize = true;
-            this.lblLiq.Location = new System.Drawing.Point(175, 291);
-            this.lblLiq.Name = "lblLiq";
-            this.lblLiq.Size = new System.Drawing.Size(43, 13);
-            this.lblLiq.TabIndex = 34;
-            this.lblLiq.Text = "Líquido";
+            this.errorNif.ContainerControl = this;
             // 
             // frmHojaSalarial
             // 
@@ -455,6 +438,7 @@
             this.grBData.PerformLayout();
             this.grBResult.ResumeLayout(false);
             this.grBResult.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorNif)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -463,17 +447,12 @@
 
         private System.Windows.Forms.GroupBox grBData;
         private System.Windows.Forms.Label lblNif;
-        private System.Windows.Forms.TextBox txtBNIF;
         private System.Windows.Forms.TextBox txtBName;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label lblCat;
         private System.Windows.Forms.DateTimePicker datePck;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label lblHours;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label lblTrn;
-        private System.Windows.Forms.TextBox txtBChld;
         private System.Windows.Forms.Label lblHijos;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Button btnCalc;
@@ -500,6 +479,9 @@
         private System.Windows.Forms.TextBox txtBTotDev;
         private System.Windows.Forms.Label lblTotDev;
         private System.Windows.Forms.Button btnMod;
+        private System.Windows.Forms.ComboBox comBCat;
+        private System.Windows.Forms.MaskedTextBox maskTxtBNIF;
+        private System.Windows.Forms.ErrorProvider errorNif;
     }
 }
 

@@ -152,14 +152,14 @@ namespace Practica2
             Console.WriteLine("\nLIQUIDACION DE HABERES AL " + FechaNominaProp.Day + "-" + FechaNominaProp.Month + "-" + FechaNominaProp.Year);
             Console.WriteLine("\nDEVENGOS\t\t\t\tDESCUENTOS" +
                 "\n----------\t\t\t\t----------" +
-                "\nSalario Base\t\t" + miEmpleado.SalarioBaseProp + "\t\tCotizacion Seg.Soc.\t" + CotASegSocial(miEmpleado) +
-                "\nAntigüedad\t\t" + ImporteAntiguedad(miEmpleado) + "\t\tCotizacion Seg.Des.\t" + CotSegDes(miEmpleado) +
-                "\nImporte Hor.Extr.\t" + ImporteHorasExtras(miEmpleado) + "\t\tRetención I.R.P.F\t" + RetIrpf(miEmpleado) +
-                "\nPaga Extra\t\t" + DevengosPagaExtra(miEmpleado) + 
-                "\n\nTotal Devengos\t\t" + TotalDevengado(miEmpleado) + "\t\tTotal Descuentos\t" + TotalDescuentos(miEmpleado));
+                "\nSalario Base\t\t" + miEmpleado.SalarioBaseProp + "\t\tCotizacion Seg.Soc.\t" + Math.Round(CotASegSocial(miEmpleado), 2) +
+                "\nAntigüedad\t\t" + Math.Round(ImporteAntiguedad(miEmpleado), 2) + "\t\tCotizacion Seg.Des.\t" + Math.Round(CotSegDes(miEmpleado), 2) +
+                "\nImporte Hor.Extr.\t" + Math.Round(ImporteHorasExtras(miEmpleado), 2) + "\t\tRetención I.R.P.F\t" + Math.Round(RetIrpf(miEmpleado), 2) +
+                "\nPaga Extra\t\t" + Math.Round(DevengosPagaExtra(miEmpleado), 2) + 
+                "\n\nTotal Devengos\t\t" + Math.Round(TotalDevengado(miEmpleado), 2) + "\t\tTotal Descuentos\t" + Math.Round(TotalDescuentos(miEmpleado), 2));
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n\n************************************" +
-                "\nLIQUIDO A PERCIBIR\t" + LiquidoAPercibir(miEmpleado) +
+                "\nLIQUIDO A PERCIBIR\t" + Math.Round(LiquidoAPercibir(miEmpleado), 2) +
                 "\n************************************");
             Console.ForegroundColor = ConsoleColor.White;
         }

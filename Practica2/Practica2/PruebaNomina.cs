@@ -85,7 +85,7 @@ namespace Practica2
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Formato de la fecha es incorrecto (se ha establecido la fecha actual");
+                Console.WriteLine("Formato de la fecha es incorrecto (se ha establecido la fecha actual)");
                 miNomina.FechaNominaProp = DateTime.Now;
             }
             Console.ForegroundColor = ConsoleColor.Blue;
