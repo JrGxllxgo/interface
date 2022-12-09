@@ -1,30 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Practica6
 {
     public partial class frmHojaSalarial : Form
     {
+        #region atributos
+        private bool nif, nombre = false;
+        private int categoria, numHijos, numTrienios, salarioBase, numHrs, porIrpf;
+        #endregion
+
         public frmHojaSalarial()
         {
             InitializeComponent();
-            comBCat.Items.Insert(0, 1);
-            comBCat.Items.Insert(1, 2);
-            comBCat.Items.Insert(2, 3);
             maskTxtBNIF.Mask = "00000000L";
+            maskTxtBNombre.Mask = "?????????????";
+            btnCalc.Enabled = false;
 
-            errorNif = new System.Windows.Forms.ErrorProvider();
-            errorNif.BlinkRate = 1000;
-            errorNif.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
+            errorNif = new ErrorProvider();
+
+            errorNombre = new ErrorProvider();
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -72,14 +69,50 @@ namespace Practica6
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
-
+            categoria = (int)numUpDownCat.Value;
+            numHijos = (int)numUpDownHijos.Value;
+            numTrienios = (int)numUpDownTrien.Value;
+            numHrs = (int)numUpDownHrs.Value;
+            setPorcIrpf();
+            calcNom();
         }
 
         private void maskTxtBNIF_Leave(object sender, EventArgs e)
         {
-            if (!(ValidarNIF(maskTxtBNIF.Text)))
+            if (ValidarNIF(maskTxtBNIF.Text))
             {
-                btnCalc.Text = "";
+                nif = true;
+                errorNif.Clear();
+            }
+            else
+            {
+                errorNif.SetError(this.maskTxtBNIF, "El nif es incorrecto");
+                nif = false;
+            }
+            activateCalc();
+        }
+
+        private void maskTxtBNombre_Leave(object sender, EventArgs e)
+        {
+            if (!maskTxtBNombre.Text.Equals(""))
+            {
+                nombre = true;
+                errorNombre.Clear();
+            }
+            else
+            {
+                errorNombre.SetError(maskTxtBNombre, "El nombre no puede estar vacío");
+                nombre = false;
+            }
+
+            activateCalc();
+        }
+
+        private void activateCalc()
+        {
+            if (nif && nombre)
+            {
+                btnCalc.Enabled = true;
             }
         }
 
@@ -137,6 +170,119 @@ namespace Practica6
             letras.Add(21, "K");
             letras.Add(22, "E");
             return letras[numero];
+        }
+
+        private void setPorcIrpf()
+        {
+            if(numUpDownCat.Value == 1)
+            {
+                porIrpf = (int)(18 - numUpDownHijos.Value);
+            }
+            else if (numUpDownCat.Value == 2)
+            {
+                porIrpf = (int)(15 - numUpDownHijos.Value);
+            }
+            else
+            {
+                porIrpf = (int)(12 - numUpDownHijos.Value);
+            }
+        }
+
+        private void calcNom()
+        {
+            txtBSB.Text = Convert.ToString(SetSalarioBase());
+            txtBAnt.Text = Convert.ToString(ImporteAntiguedad());
+            txtBHrs.Text = Convert.ToString(ImporteHrsExtra());
+            txtBPE.Text = Convert.ToString(ImportePagExtra());
+            txtBTotDev.Text = Convert.ToString(TotalDevengos());
+            txtBCotSegSoc.Text = Convert.ToString(ImporteCotSegSoc());
+            txtBCotSegDes.Text = Convert.ToString(ImporteCotSegDes());
+            txtBRetIRPF.Text = Convert.ToString(RetIRPF());
+            txtBTotDes.Text = Convert.ToString(TotalDescuentos());
+            txtBLiq.Text = Convert.ToString(LiquidoAPercibir());
+        }
+
+        public int SetSalarioBase()
+        {
+            if (numUpDownCat.Value == 1)
+            {
+                salarioBase = 2500;
+            }
+            else if (numUpDownCat.Value == 2)
+            {
+                salarioBase = 2000;
+            }
+            else
+            {
+                salarioBase = 1000;
+            }
+
+            return salarioBase;
+        }
+
+        public double ImporteAntiguedad()
+        {
+            return (numTrienios * salarioBase * 4) / 100;
+        }
+
+        public double ImporteHrsExtra()
+        {
+            return numHrs * salarioBase * 1 / 100;
+        }
+
+        public double ImportePagExtra()
+        {
+            return salarioBase + ImporteAntiguedad();
+        }
+
+        public double TotalDevengos()
+        {
+            return salarioBase + ImporteAntiguedad() + ImporteHrsExtra() + ImportePagExtra();
+        }
+
+        public double ImporteCotSegSoc()
+        {
+            return TotalDevengos() * 1.97 / 100;
+        }
+
+        public double ImporteCotSegDes()
+        {
+            return (ImportePagExtra() / 3) * 4.51 / 100;
+        }
+
+        public double RetIRPF()
+        {
+            double ret;
+            if (datePck.Value.Month == 12 || datePck.Value.Month == 6)
+            {
+                ret = TotalDevengos() + ImportePagExtra() * porIrpf / 100;
+            }
+            else
+            {
+                ret = TotalDevengos() * porIrpf / 100;
+            }
+
+            return ret;
+        }
+
+        public double LiquidoAPercibir()
+        {
+            double liq;
+            if (datePck.Value.Month == 12 || datePck.Value.Month == 6)
+            {
+                liq = TotalDevengos() + ImportePagExtra() - TotalDescuentos();
+            }
+            else
+            {
+                liq = TotalDevengos() - TotalDescuentos();
+            }
+
+            return liq;
+        }
+
+        private double TotalDescuentos()
+        {
+            return ImporteCotSegDes() + RetIRPF() + ImporteCotSegSoc();
         }
     }
 }

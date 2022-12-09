@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+* PRÁCTICA.............: Práctica 5.
+* NOMBRE Y APELLIDOS...: José Ramón Gallego Vélez
+* CURSO Y GRUPO........: 2º Desarrollo de Interfaces
+* TÍTULO DE LA PRÁCTICA: Estructuras de Datos Internas y Manejo de Ficheros.
+* FECHA DE ENTREGA.....: 18 de noviembre de 2022
+*/
 
 namespace Practica5
 {

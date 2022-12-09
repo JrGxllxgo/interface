@@ -171,14 +171,6 @@ namespace Practica5
             }
         }
 
-        private static void imprimirNotas(Alumno alumno, List<string> fila)
-        {
-            for (int i = 0; i < alumno.Notas.Length; i++)
-            {
-                fila.Add(Convert.ToString(alumno.Notas[i]));
-            }
-        }
-
         private static void saveData(Grupo myGroup)
         {
             StreamWriter ficheroAlumnos = File.CreateText("D:\\2 DAM\\Interface\\prueba.txt");

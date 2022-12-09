@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHojaSalarial));
             this.grBData = new System.Windows.Forms.GroupBox();
+            this.maskTxtBNombre = new System.Windows.Forms.MaskedTextBox();
             this.maskTxtBNIF = new System.Windows.Forms.MaskedTextBox();
-            this.comBCat = new System.Windows.Forms.ComboBox();
             this.btnCalc = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
             this.datePck = new System.Windows.Forms.DateTimePicker();
@@ -40,7 +40,6 @@
             this.lblTrn = new System.Windows.Forms.Label();
             this.lblHijos = new System.Windows.Forms.Label();
             this.lblCat = new System.Windows.Forms.Label();
-            this.txtBName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.lblNif = new System.Windows.Forms.Label();
             this.grBResult = new System.Windows.Forms.GroupBox();
@@ -53,13 +52,13 @@
             this.btnMod = new System.Windows.Forms.Button();
             this.txtBRetIRPF = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtBCotSegDes = new System.Windows.Forms.TextBox();
             this.lblCotSegDes = new System.Windows.Forms.Label();
             this.txtBCotSegSoc = new System.Windows.Forms.TextBox();
             this.lblCotSegSoc = new System.Windows.Forms.Label();
             this.txtBPE = new System.Windows.Forms.TextBox();
             this.lblPE = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtBHrs = new System.Windows.Forms.TextBox();
             this.lblHE = new System.Windows.Forms.Label();
             this.txtBAnt = new System.Windows.Forms.TextBox();
             this.lblAnt = new System.Windows.Forms.Label();
@@ -67,15 +66,29 @@
             this.txtBSB = new System.Windows.Forms.TextBox();
             this.lblSB = new System.Windows.Forms.Label();
             this.errorNif = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorNombre = new System.Windows.Forms.ErrorProvider(this.components);
+            this.numUpDownHijos = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownTrien = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownHrs = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownCat = new System.Windows.Forms.NumericUpDown();
             this.grBData.SuspendLayout();
             this.grBResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNif)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHijos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTrien)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHrs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownCat)).BeginInit();
             this.SuspendLayout();
             // 
             // grBData
             // 
+            this.grBData.Controls.Add(this.numUpDownCat);
+            this.grBData.Controls.Add(this.numUpDownHrs);
+            this.grBData.Controls.Add(this.numUpDownTrien);
+            this.grBData.Controls.Add(this.numUpDownHijos);
+            this.grBData.Controls.Add(this.maskTxtBNombre);
             this.grBData.Controls.Add(this.maskTxtBNIF);
-            this.grBData.Controls.Add(this.comBCat);
             this.grBData.Controls.Add(this.btnCalc);
             this.grBData.Controls.Add(this.lblDate);
             this.grBData.Controls.Add(this.datePck);
@@ -83,7 +96,6 @@
             this.grBData.Controls.Add(this.lblTrn);
             this.grBData.Controls.Add(this.lblHijos);
             this.grBData.Controls.Add(this.lblCat);
-            this.grBData.Controls.Add(this.txtBName);
             this.grBData.Controls.Add(this.lblName);
             this.grBData.Controls.Add(this.lblNif);
             this.grBData.Location = new System.Drawing.Point(40, 12);
@@ -92,24 +104,23 @@
             this.grBData.TabIndex = 0;
             this.grBData.TabStop = false;
             this.grBData.Text = "Introducción de datos";
-            this.grBData.Enter += new System.EventHandler(this.grBData_Enter);
+            // 
+            // maskTxtBNombre
+            // 
+            this.maskTxtBNombre.Location = new System.Drawing.Point(67, 72);
+            this.maskTxtBNombre.Name = "maskTxtBNombre";
+            this.maskTxtBNombre.Size = new System.Drawing.Size(89, 20);
+            this.maskTxtBNombre.TabIndex = 19;
+            this.maskTxtBNombre.Leave += new System.EventHandler(this.maskTxtBNombre_Leave);
             // 
             // maskTxtBNIF
             // 
             this.maskTxtBNIF.Location = new System.Drawing.Point(70, 34);
+            this.maskTxtBNIF.Mask = "mas";
             this.maskTxtBNIF.Name = "maskTxtBNIF";
             this.maskTxtBNIF.Size = new System.Drawing.Size(86, 20);
             this.maskTxtBNIF.TabIndex = 18;
             this.maskTxtBNIF.Leave += new System.EventHandler(this.maskTxtBNIF_Leave);
-            // 
-            // comBCat
-            // 
-            this.comBCat.FormattingEnabled = true;
-            this.comBCat.Location = new System.Drawing.Point(71, 120);
-            this.comBCat.Name = "comBCat";
-            this.comBCat.Size = new System.Drawing.Size(43, 21);
-            this.comBCat.TabIndex = 17;
-            this.comBCat.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // btnCalc
             // 
@@ -180,14 +191,6 @@
             this.lblCat.Text = "Categoría";
             this.lblCat.Click += new System.EventHandler(this.label1_Click_2);
             // 
-            // txtBName
-            // 
-            this.txtBName.Location = new System.Drawing.Point(69, 76);
-            this.txtBName.Name = "txtBName";
-            this.txtBName.Size = new System.Drawing.Size(92, 20);
-            this.txtBName.TabIndex = 5;
-            this.txtBName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // lblName
             // 
             this.lblName.AutoSize = true;
@@ -218,13 +221,13 @@
             this.grBResult.Controls.Add(this.btnMod);
             this.grBResult.Controls.Add(this.txtBRetIRPF);
             this.grBResult.Controls.Add(this.label1);
-            this.grBResult.Controls.Add(this.textBox6);
+            this.grBResult.Controls.Add(this.txtBCotSegDes);
             this.grBResult.Controls.Add(this.lblCotSegDes);
             this.grBResult.Controls.Add(this.txtBCotSegSoc);
             this.grBResult.Controls.Add(this.lblCotSegSoc);
             this.grBResult.Controls.Add(this.txtBPE);
             this.grBResult.Controls.Add(this.lblPE);
-            this.grBResult.Controls.Add(this.textBox4);
+            this.grBResult.Controls.Add(this.txtBHrs);
             this.grBResult.Controls.Add(this.lblHE);
             this.grBResult.Controls.Add(this.txtBAnt);
             this.grBResult.Controls.Add(this.lblAnt);
@@ -312,12 +315,12 @@
             this.label1.Text = "Retención IRPF";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // textBox6
+            // txtBCotSegDes
             // 
-            this.textBox6.Location = new System.Drawing.Point(433, 112);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(92, 20);
-            this.textBox6.TabIndex = 26;
+            this.txtBCotSegDes.Location = new System.Drawing.Point(433, 112);
+            this.txtBCotSegDes.Name = "txtBCotSegDes";
+            this.txtBCotSegDes.Size = new System.Drawing.Size(92, 20);
+            this.txtBCotSegDes.TabIndex = 26;
             // 
             // lblCotSegDes
             // 
@@ -360,13 +363,13 @@
             this.lblPE.TabIndex = 21;
             this.lblPE.Text = "Paga Extra";
             // 
-            // textBox4
+            // txtBHrs
             // 
-            this.textBox4.Location = new System.Drawing.Point(104, 153);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(92, 20);
-            this.textBox4.TabIndex = 20;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.txtBHrs.Location = new System.Drawing.Point(104, 153);
+            this.txtBHrs.Name = "txtBHrs";
+            this.txtBHrs.Size = new System.Drawing.Size(92, 20);
+            this.txtBHrs.TabIndex = 20;
+            this.txtBHrs.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // lblHE
             // 
@@ -423,6 +426,58 @@
             // 
             this.errorNif.ContainerControl = this;
             // 
+            // errorNombre
+            // 
+            this.errorNombre.ContainerControl = this;
+            // 
+            // numUpDownHijos
+            // 
+            this.numUpDownHijos.Location = new System.Drawing.Point(176, 121);
+            this.numUpDownHijos.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDownHijos.Name = "numUpDownHijos";
+            this.numUpDownHijos.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownHijos.TabIndex = 20;
+            // 
+            // numUpDownTrien
+            // 
+            this.numUpDownTrien.Location = new System.Drawing.Point(314, 126);
+            this.numUpDownTrien.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numUpDownTrien.Name = "numUpDownTrien";
+            this.numUpDownTrien.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownTrien.TabIndex = 21;
+            // 
+            // numUpDownHrs
+            // 
+            this.numUpDownHrs.Location = new System.Drawing.Point(481, 121);
+            this.numUpDownHrs.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numUpDownHrs.Name = "numUpDownHrs";
+            this.numUpDownHrs.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownHrs.TabIndex = 22;
+            // 
+            // numUpDownCat
+            // 
+            this.numUpDownCat.Location = new System.Drawing.Point(70, 121);
+            this.numUpDownCat.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numUpDownCat.Name = "numUpDownCat";
+            this.numUpDownCat.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownCat.TabIndex = 23;
+            // 
             // frmHojaSalarial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,6 +494,11 @@
             this.grBResult.ResumeLayout(false);
             this.grBResult.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNif)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHijos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTrien)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHrs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownCat)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,7 +507,6 @@
 
         private System.Windows.Forms.GroupBox grBData;
         private System.Windows.Forms.Label lblNif;
-        private System.Windows.Forms.TextBox txtBName;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblCat;
         private System.Windows.Forms.DateTimePicker datePck;
@@ -457,7 +516,7 @@
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Button btnCalc;
         private System.Windows.Forms.GroupBox grBResult;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtBHrs;
         private System.Windows.Forms.Label lblHE;
         private System.Windows.Forms.TextBox txtBAnt;
         private System.Windows.Forms.Label lblAnt;
@@ -468,7 +527,7 @@
         private System.Windows.Forms.Label lblPE;
         private System.Windows.Forms.TextBox txtBRetIRPF;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtBCotSegDes;
         private System.Windows.Forms.Label lblCotSegDes;
         private System.Windows.Forms.TextBox txtBCotSegSoc;
         private System.Windows.Forms.Label lblCotSegSoc;
@@ -479,9 +538,14 @@
         private System.Windows.Forms.TextBox txtBTotDev;
         private System.Windows.Forms.Label lblTotDev;
         private System.Windows.Forms.Button btnMod;
-        private System.Windows.Forms.ComboBox comBCat;
         private System.Windows.Forms.MaskedTextBox maskTxtBNIF;
         private System.Windows.Forms.ErrorProvider errorNif;
+        private System.Windows.Forms.ErrorProvider errorNombre;
+        private System.Windows.Forms.MaskedTextBox maskTxtBNombre;
+        private System.Windows.Forms.NumericUpDown numUpDownHijos;
+        private System.Windows.Forms.NumericUpDown numUpDownCat;
+        private System.Windows.Forms.NumericUpDown numUpDownHrs;
+        private System.Windows.Forms.NumericUpDown numUpDownTrien;
     }
 }
 
