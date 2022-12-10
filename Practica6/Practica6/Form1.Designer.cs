@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHojaSalarial));
             this.grBData = new System.Windows.Forms.GroupBox();
+            this.numUpDownCat = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownHrs = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownTrien = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownHijos = new System.Windows.Forms.NumericUpDown();
             this.maskTxtBNombre = new System.Windows.Forms.MaskedTextBox();
             this.maskTxtBNIF = new System.Windows.Forms.MaskedTextBox();
             this.btnCalc = new System.Windows.Forms.Button();
@@ -67,18 +71,14 @@
             this.lblSB = new System.Windows.Forms.Label();
             this.errorNif = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorNombre = new System.Windows.Forms.ErrorProvider(this.components);
-            this.numUpDownHijos = new System.Windows.Forms.NumericUpDown();
-            this.numUpDownTrien = new System.Windows.Forms.NumericUpDown();
-            this.numUpDownHrs = new System.Windows.Forms.NumericUpDown();
-            this.numUpDownCat = new System.Windows.Forms.NumericUpDown();
             this.grBData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownCat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHrs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTrien)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHijos)).BeginInit();
             this.grBResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNif)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHijos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTrien)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHrs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownCat)).BeginInit();
             this.SuspendLayout();
             // 
             // grBData
@@ -104,6 +104,54 @@
             this.grBData.TabIndex = 0;
             this.grBData.TabStop = false;
             this.grBData.Text = "Introducción de datos";
+            // 
+            // numUpDownCat
+            // 
+            this.numUpDownCat.Location = new System.Drawing.Point(70, 121);
+            this.numUpDownCat.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numUpDownCat.Name = "numUpDownCat";
+            this.numUpDownCat.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownCat.TabIndex = 23;
+            // 
+            // numUpDownHrs
+            // 
+            this.numUpDownHrs.Location = new System.Drawing.Point(481, 121);
+            this.numUpDownHrs.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numUpDownHrs.Name = "numUpDownHrs";
+            this.numUpDownHrs.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownHrs.TabIndex = 22;
+            // 
+            // numUpDownTrien
+            // 
+            this.numUpDownTrien.Location = new System.Drawing.Point(314, 126);
+            this.numUpDownTrien.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numUpDownTrien.Name = "numUpDownTrien";
+            this.numUpDownTrien.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownTrien.TabIndex = 21;
+            // 
+            // numUpDownHijos
+            // 
+            this.numUpDownHijos.Location = new System.Drawing.Point(176, 121);
+            this.numUpDownHijos.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDownHijos.Name = "numUpDownHijos";
+            this.numUpDownHijos.Size = new System.Drawing.Size(33, 20);
+            this.numUpDownHijos.TabIndex = 20;
             // 
             // maskTxtBNombre
             // 
@@ -245,6 +293,7 @@
             // 
             this.txtBLiq.Location = new System.Drawing.Point(260, 288);
             this.txtBLiq.Name = "txtBLiq";
+            this.txtBLiq.ReadOnly = true;
             this.txtBLiq.Size = new System.Drawing.Size(92, 20);
             this.txtBLiq.TabIndex = 35;
             // 
@@ -261,6 +310,7 @@
             // 
             this.txtBTotDes.Location = new System.Drawing.Point(375, 251);
             this.txtBTotDes.Name = "txtBTotDes";
+            this.txtBTotDes.ReadOnly = true;
             this.txtBTotDes.Size = new System.Drawing.Size(92, 20);
             this.txtBTotDes.TabIndex = 33;
             // 
@@ -277,6 +327,7 @@
             // 
             this.txtBTotDev.Location = new System.Drawing.Point(117, 251);
             this.txtBTotDev.Name = "txtBTotDev";
+            this.txtBTotDev.ReadOnly = true;
             this.txtBTotDev.Size = new System.Drawing.Size(92, 20);
             this.txtBTotDev.TabIndex = 31;
             // 
@@ -297,11 +348,13 @@
             this.btnMod.TabIndex = 29;
             this.btnMod.Text = "Modificar Datos";
             this.btnMod.UseVisualStyleBackColor = true;
+            this.btnMod.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnMod_MouseClick);
             // 
             // txtBRetIRPF
             // 
             this.txtBRetIRPF.Location = new System.Drawing.Point(433, 153);
             this.txtBRetIRPF.Name = "txtBRetIRPF";
+            this.txtBRetIRPF.ReadOnly = true;
             this.txtBRetIRPF.Size = new System.Drawing.Size(92, 20);
             this.txtBRetIRPF.TabIndex = 28;
             // 
@@ -319,6 +372,7 @@
             // 
             this.txtBCotSegDes.Location = new System.Drawing.Point(433, 112);
             this.txtBCotSegDes.Name = "txtBCotSegDes";
+            this.txtBCotSegDes.ReadOnly = true;
             this.txtBCotSegDes.Size = new System.Drawing.Size(92, 20);
             this.txtBCotSegDes.TabIndex = 26;
             // 
@@ -335,6 +389,7 @@
             // 
             this.txtBCotSegSoc.Location = new System.Drawing.Point(433, 76);
             this.txtBCotSegSoc.Name = "txtBCotSegSoc";
+            this.txtBCotSegSoc.ReadOnly = true;
             this.txtBCotSegSoc.Size = new System.Drawing.Size(92, 20);
             this.txtBCotSegSoc.TabIndex = 24;
             // 
@@ -351,6 +406,7 @@
             // 
             this.txtBPE.Location = new System.Drawing.Point(106, 194);
             this.txtBPE.Name = "txtBPE";
+            this.txtBPE.ReadOnly = true;
             this.txtBPE.Size = new System.Drawing.Size(92, 20);
             this.txtBPE.TabIndex = 22;
             // 
@@ -367,6 +423,7 @@
             // 
             this.txtBHrs.Location = new System.Drawing.Point(104, 153);
             this.txtBHrs.Name = "txtBHrs";
+            this.txtBHrs.ReadOnly = true;
             this.txtBHrs.Size = new System.Drawing.Size(92, 20);
             this.txtBHrs.TabIndex = 20;
             this.txtBHrs.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
@@ -385,6 +442,7 @@
             // 
             this.txtBAnt.Location = new System.Drawing.Point(104, 112);
             this.txtBAnt.Name = "txtBAnt";
+            this.txtBAnt.ReadOnly = true;
             this.txtBAnt.Size = new System.Drawing.Size(92, 20);
             this.txtBAnt.TabIndex = 18;
             // 
@@ -405,11 +463,13 @@
             this.btnSalir.TabIndex = 16;
             this.btnSalir.Text = "SALIR";
             this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnSalir_MouseClick);
             // 
             // txtBSB
             // 
             this.txtBSB.Location = new System.Drawing.Point(104, 76);
             this.txtBSB.Name = "txtBSB";
+            this.txtBSB.ReadOnly = true;
             this.txtBSB.Size = new System.Drawing.Size(92, 20);
             this.txtBSB.TabIndex = 3;
             // 
@@ -430,54 +490,6 @@
             // 
             this.errorNombre.ContainerControl = this;
             // 
-            // numUpDownHijos
-            // 
-            this.numUpDownHijos.Location = new System.Drawing.Point(176, 121);
-            this.numUpDownHijos.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numUpDownHijos.Name = "numUpDownHijos";
-            this.numUpDownHijos.Size = new System.Drawing.Size(33, 20);
-            this.numUpDownHijos.TabIndex = 20;
-            // 
-            // numUpDownTrien
-            // 
-            this.numUpDownTrien.Location = new System.Drawing.Point(314, 126);
-            this.numUpDownTrien.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.numUpDownTrien.Name = "numUpDownTrien";
-            this.numUpDownTrien.Size = new System.Drawing.Size(33, 20);
-            this.numUpDownTrien.TabIndex = 21;
-            // 
-            // numUpDownHrs
-            // 
-            this.numUpDownHrs.Location = new System.Drawing.Point(481, 121);
-            this.numUpDownHrs.Maximum = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
-            this.numUpDownHrs.Name = "numUpDownHrs";
-            this.numUpDownHrs.Size = new System.Drawing.Size(33, 20);
-            this.numUpDownHrs.TabIndex = 22;
-            // 
-            // numUpDownCat
-            // 
-            this.numUpDownCat.Location = new System.Drawing.Point(70, 121);
-            this.numUpDownCat.Maximum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.numUpDownCat.Name = "numUpDownCat";
-            this.numUpDownCat.Size = new System.Drawing.Size(33, 20);
-            this.numUpDownCat.TabIndex = 23;
-            // 
             // frmHojaSalarial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -485,20 +497,23 @@
             this.ClientSize = new System.Drawing.Size(800, 681);
             this.Controls.Add(this.grBResult);
             this.Controls.Add(this.grBData);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(100, 2000);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmHojaSalarial";
             this.Text = "Hoja Salarial";
             this.grBData.ResumeLayout(false);
             this.grBData.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownCat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHrs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTrien)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHijos)).EndInit();
             this.grBResult.ResumeLayout(false);
             this.grBResult.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorNif)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorNombre)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHijos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTrien)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHrs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownCat)).EndInit();
             this.ResumeLayout(false);
 
         }

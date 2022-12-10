@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
+/*
+* PRÁCTICA.............: Práctica 6.
+* NOMBRE Y APELLIDOS...: José Ramón Gallego Vélez
+* CURSO Y GRUPO........: 2º Desarrollo de Interfaces
+* TÍTULO DE LA PRÁCTICA: Aplicaciones de Formulario. Controles Básicos.
+* FECHA DE ENTREGA.....: 07 de diciembre de 2022
+*/
+
 namespace Practica6
 {
     public partial class frmHojaSalarial : Form
@@ -17,6 +25,7 @@ namespace Practica6
             maskTxtBNIF.Mask = "00000000L";
             maskTxtBNombre.Mask = "?????????????";
             btnCalc.Enabled = false;
+            grBResult.Visible = false;
 
             errorNif = new ErrorProvider();
 
@@ -73,8 +82,11 @@ namespace Practica6
             numHijos = (int)numUpDownHijos.Value;
             numTrienios = (int)numUpDownTrien.Value;
             numHrs = (int)numUpDownHrs.Value;
-            setPorcIrpf();
-            calcNom();
+            SetPorcIrpf();
+            CalcNom();
+            grBResult.Visible = true;
+            grBResult.Enabled = true;
+            grBData.Enabled = false;
         }
 
         private void maskTxtBNIF_Leave(object sender, EventArgs e)
@@ -172,7 +184,7 @@ namespace Practica6
             return letras[numero];
         }
 
-        private void setPorcIrpf()
+        private void SetPorcIrpf()
         {
             if(numUpDownCat.Value == 1)
             {
@@ -188,18 +200,18 @@ namespace Practica6
             }
         }
 
-        private void calcNom()
+        private void CalcNom()
         {
             txtBSB.Text = Convert.ToString(SetSalarioBase());
-            txtBAnt.Text = Convert.ToString(ImporteAntiguedad());
-            txtBHrs.Text = Convert.ToString(ImporteHrsExtra());
-            txtBPE.Text = Convert.ToString(ImportePagExtra());
-            txtBTotDev.Text = Convert.ToString(TotalDevengos());
-            txtBCotSegSoc.Text = Convert.ToString(ImporteCotSegSoc());
-            txtBCotSegDes.Text = Convert.ToString(ImporteCotSegDes());
-            txtBRetIRPF.Text = Convert.ToString(RetIRPF());
-            txtBTotDes.Text = Convert.ToString(TotalDescuentos());
-            txtBLiq.Text = Convert.ToString(LiquidoAPercibir());
+            txtBAnt.Text = Convert.ToString(Math.Round(ImporteAntiguedad(), 2));
+            txtBHrs.Text = Convert.ToString(Math.Round(ImporteHrsExtra(), 2));
+            txtBPE.Text = Convert.ToString(Math.Round(ImportePagExtra(), 2));
+            txtBTotDev.Text = Convert.ToString(Math.Round(TotalDevengos(), 2));
+            txtBCotSegSoc.Text = Convert.ToString(Math.Round(ImporteCotSegSoc(), 2));
+            txtBCotSegDes.Text = Convert.ToString(Math.Round(ImporteCotSegDes(), 2));
+            txtBRetIRPF.Text = Convert.ToString(Math.Round(RetIRPF(), 2));
+            txtBTotDes.Text = Convert.ToString(Math.Round(TotalDescuentos(), 2));
+            txtBLiq.Text = Convert.ToString(Math.Round(LiquidoAPercibir(), 2));
         }
 
         public int SetSalarioBase()
@@ -233,6 +245,17 @@ namespace Practica6
         public double ImportePagExtra()
         {
             return salarioBase + ImporteAntiguedad();
+        }
+
+        private void btnMod_MouseClick(object sender, MouseEventArgs e)
+        {
+            grBData.Enabled = true;
+            grBResult.Enabled = false;
+        }
+
+        private void btnSalir_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Close();
         }
 
         public double TotalDevengos()
