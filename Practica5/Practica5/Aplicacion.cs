@@ -6,6 +6,7 @@
 * FECHA DE ENTREGA.....: 18 de noviembre de 2022
 */
 using Microsoft.VisualBasic;
+using System.Text.RegularExpressions;
 
 namespace Practica5
 {
@@ -14,11 +15,11 @@ namespace Practica5
         #region Atributos para imprimir
         private static List<string> header;
         private static List<int> cursor;
+        private static List<Grupo> grupos = new List<Grupo>();
+        private static string path = "../../../GroupsFiles/";
         #endregion
         public static void Main(string[] args)
         {
-            Grupo myGroup = createGroup();
-
             int optSelected = 8;
 
             while (true)
@@ -27,44 +28,93 @@ namespace Practica5
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("************** GESTIÓN DE GRUPO **************");
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("1. Añadir alumno" +
-                    "\n2. Borrar Alumno" +
-                    "\n3. Consulta Alumno" +
-                    "\n4. Acta del Grupo" +
-                    "\n5. Guardar Información" +
-                    "\n6. Recuperar Información" +
-                    "\n7. Salir");
+                Console.WriteLine("1. Crear Grupo" +
+                    "\n2. Usar Grupo existente" +
+                    "\n3. Definir ruta de almacenamiento: " + path +
+                    "\n4.  Salir");
                 optSelected = Auxiliar.solicitarEnteroRango(1, 7, "Introduzca el numero de la opcion");
                 Console.ForegroundColor = ConsoleColor.White;
 
                 switch (optSelected)
                 {
                     case 1:
-                        myGroup.anadirAlumno(createAlumno(myGroup));
+                        grupos.Add(createGroup());
                         Auxiliar.continueKey();
                         break;
                     case 2:
-                        borrarAlumno(myGroup);
+                        if(grupos.Count == 0)
+                        {
+                            Auxiliar.writeError("No existe ningún grupo creado");
+                        }
+                        else
+                        {
+                            printGroups();
+                            int grupoSel = Auxiliar.solicitarEnteroRango(1, grupos.Count, "Seleccione el número de grupo");
+                            Grupo myGroup = grupos[grupoSel - 1];
+
+                            while (true)
+                            {
+                                Console.Clear();
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("************** GESTIÓN DE GRUPO **************");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine("1. Añadir alumno" +
+                                    "\n2. Borrar Alumno" +
+                                    "\n3. Consulta Alumno" +
+                                    "\n4. Acta del Grupo" +
+                                    "\n5. Guardar Información" +
+                                    "\n6. Recuperar Información" +
+                                    "\n7. Salir");
+                                optSelected = Auxiliar.solicitarEnteroRango(1, 7, "Introduzca el numero de la opcion");
+                                Console.ForegroundColor = ConsoleColor.White;
+
+                                switch (optSelected)
+                                {
+                                    case 1:
+                                        myGroup.anadirAlumno(createAlumno(myGroup));
+                                        Auxiliar.continueKey();
+                                        break;
+                                    case 2:
+                                        borrarAlumno(myGroup);
+                                        Auxiliar.continueKey();
+                                        break;
+                                    case 3:
+                                        consultaAlumno(myGroup);
+                                        Auxiliar.continueKey();
+                                        break;
+                                    case 4:
+                                        imprimirHeader(myGroup);
+                                        imprimirActa(myGroup);
+                                        Auxiliar.continueKey();
+                                        break;
+                                    case 5:
+                                        saveData(myGroup);
+                                        Auxiliar.continueKey();
+                                        break;
+                                    case 6:
+                                        readData(myGroup);
+                                        Auxiliar.continueKey();
+                                        break;
+                                    case 7:
+                                        Console.WriteLine("Hasta luego!!!");
+                                        Environment.Exit(0);
+                                        break;
+                                    default: //mensaje predefinido que saldrá cuando introduzcan un valor numérico que no está entre las opciones
+                                        Auxiliar.writeError("Opción no válida");
+                                        Auxiliar.continueKey();
+                                        break;
+                                }
+                            }
+                        }
                         Auxiliar.continueKey();
                         break;
                     case 3:
-                        consultaAlumno(myGroup);
+                        string newPath = Auxiliar.leerCadena("Introduzca la ruta deseada");
+                        Console.WriteLine("Ruta modificada correctamente!!" + path + " --> " + newPath);
+                        path = newPath;
                         Auxiliar.continueKey();
                         break;
                     case 4:
-                        imprimirHeader(myGroup);
-                        imprimirActa(myGroup);
-                        Auxiliar.continueKey();
-                        break;
-                    case 5:
-                        saveData(myGroup);
-                        Auxiliar.continueKey();
-                        break;
-                    case 6:
-                        readData(myGroup);
-                        Auxiliar.continueKey();
-                        break;
-                    case 7:
                         Console.WriteLine("Hasta luego!!!");
                         Environment.Exit(0);
                         break;
@@ -76,9 +126,17 @@ namespace Practica5
             }
         }
 
+        private static void printGroups()
+        {
+            for(int i = 0; i < grupos.Count; i++)
+            {
+                Console.WriteLine(i + 1 + ". " + grupos[i].NombreGrupo.ToString());
+            }
+        }
+
         private static void readData(Grupo myGroup)
         {
-            StreamReader myFile = File.OpenText("D:\\2 DAM\\Interface\\prueba.txt");
+            StreamReader myFile = File.OpenText(path + myGroup.NombreGrupo + ".txt");
 
             string linea;
             int cont = 0;
@@ -173,7 +231,7 @@ namespace Practica5
 
         private static void saveData(Grupo myGroup)
         {
-            StreamWriter ficheroAlumnos = File.CreateText("D:\\2 DAM\\Interface\\prueba.txt");
+            StreamWriter ficheroAlumnos = File.CreateText(path + myGroup.NombreGrupo + ".txt");
 
             for (int i = 0; i < myGroup.Alumnos.Count; i++)
             {
