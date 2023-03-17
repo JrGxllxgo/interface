@@ -54,16 +54,14 @@ namespace Practica5
                 }
                 catch (OverflowException) //cojemos la excepcion por si escribe un valor muy largo
                 {
-                    Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error en la introduccion del número");
+                    Console.WriteLine("Error en la introducción del número");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 catch (FormatException) //excepcion por si escribe texto
                 {
-                    Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error en la introduccion del número");
+                    Console.WriteLine("Error en la introducción del número");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }

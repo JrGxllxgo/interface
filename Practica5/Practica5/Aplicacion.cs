@@ -42,7 +42,7 @@ namespace Practica5
                         Auxiliar.continueKey();
                         break;
                     case 2:
-                        if(grupos.Count == 0)
+                        if (grupos.Count == 0)
                         {
                             Auxiliar.writeError("No existe ningún grupo creado");
                         }
@@ -52,7 +52,9 @@ namespace Practica5
                             int grupoSel = Auxiliar.solicitarEnteroRango(1, grupos.Count, "Seleccione el número de grupo");
                             Grupo myGroup = grupos[grupoSel - 1];
 
-                            while (true)
+                            int optSelected2 = 7;
+
+                            while (optSelected2 != 6)
                             {
                                 Console.Clear();
                                 Console.ForegroundColor = ConsoleColor.Yellow;
@@ -63,9 +65,8 @@ namespace Practica5
                                     "\n3. Consulta Alumno" +
                                     "\n4. Acta del Grupo" +
                                     "\n5. Guardar Información" +
-                                    "\n6. Recuperar Información" +
-                                    "\n7. Salir");
-                                optSelected = Auxiliar.solicitarEnteroRango(1, 7, "Introduzca el numero de la opcion");
+                                    "\n6. Volver");
+                                optSelected = Auxiliar.solicitarEnteroRango(1, 7, "Introduzca el número de la opción");
                                 Console.ForegroundColor = ConsoleColor.White;
 
                                 switch (optSelected)
@@ -92,12 +93,7 @@ namespace Practica5
                                         Auxiliar.continueKey();
                                         break;
                                     case 6:
-                                        readData(myGroup);
-                                        Auxiliar.continueKey();
-                                        break;
-                                    case 7:
-                                        Console.WriteLine("Hasta luego!!!");
-                                        Environment.Exit(0);
+                                        optSelected2 = 6;
                                         break;
                                     default: //mensaje predefinido que saldrá cuando introduzcan un valor numérico que no está entre las opciones
                                         Auxiliar.writeError("Opción no válida");
@@ -128,7 +124,7 @@ namespace Practica5
 
         private static void printGroups()
         {
-            for(int i = 0; i < grupos.Count; i++)
+            for (int i = 0; i < grupos.Count; i++)
             {
                 Console.WriteLine(i + 1 + ". " + grupos[i].NombreGrupo.ToString());
             }
@@ -257,10 +253,22 @@ namespace Practica5
         {
             try
             {
-                myGroup.borraAlumno(Auxiliar.solicitarEnteroRango(0, myGroup.Alumnos.Count, "Introduzca el numero de matricula"));
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Alumno borrado con éxito");
-                Console.ForegroundColor = ConsoleColor.White;
+                if (myGroup.Alumnos.Count == 0)
+                {
+                    Auxiliar.writeError("No hay alumnos registrados");
+                }
+                else
+                {
+                    myGroup.Alumnos.Sort();
+
+                    imprimirHeader(myGroup);
+                    imprimirFila(myGroup.Alumnos);
+
+                    myGroup.borraAlumno(Auxiliar.solicitarEnteroRango(0, myGroup.Alumnos.Count, "Introduzca el numero de matricula"));
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Alumno borrado con éxito");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -295,27 +303,53 @@ namespace Practica5
             string[] codAsignaturas = new string[numAsignaturas];
 
             Console.WriteLine("Escriba el código de la asignatura (3 caracteres)");
-            for (int i = 0; i < numAsignaturas; i++)
+            int i = 0;
+            while (i < numAsignaturas)
             {
                 string asignatura = null;
-                while (asignatura == null || asignatura.Length > 3)
+                bool incorrecto = false;
+                do
                 {
+                    incorrecto = false;
                     asignatura = Auxiliar.leerCadena("Asignatura " + i).ToUpper();
-
-                    if (asignatura.Length > 3)
+                    if (!repAsig(codAsignaturas, asignatura))
                     {
-                        Auxiliar.writeError("No puede ser más de tres carácteres");
-                        asignatura = Auxiliar.leerCadena("Asignatura " + i).ToUpper();
+                        //asignatura = Auxiliar.leerCadena("Asignatura " + i).ToUpper();
+
+                        if (asignatura.Length > 3)
+                        {
+                            Auxiliar.writeError("No puede ser más de tres carácteres");
+                            incorrecto = true;
+                        }
+                        else
+                        {
+                            codAsignaturas[i] = asignatura;
+                            header.Add(codAsignaturas[i]);
+                        }
+                    }
+                    else
+                    {
+                        incorrecto = true;
                     }
                 }
-
-                codAsignaturas[i] = asignatura;
-                header.Add(codAsignaturas[i]);
+                while (incorrecto);
+                i++;
             }
 
             header.Add("MEDIA");
 
             return new Grupo(nombre, numAsignaturas, codAsignaturas);
+        }
+
+        private static bool repAsig(string[] codAsignaturas, string asignatura)
+        {
+            bool rep = false;
+            if (codAsignaturas.Contains(asignatura))
+            {
+                rep = true;
+                Auxiliar.writeError("La asignatura" + asignatura + " ya existe");
+            }
+            return rep;
         }
     }
 }
